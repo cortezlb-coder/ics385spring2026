@@ -1,34 +1,64 @@
+<!-- Dicee Game - A two-player dice rolling game -->
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
+    <!-- Character encoding and page title -->
     <meta charset="utf-8">
     <title>Dicee</title>
+    
+    <!-- Link to external stylesheet for styling -->
     <link rel="stylesheet" href="styles.css">
+    
+    <!-- Import custom Google Fonts: Indie Flower and Lobster -->
     <link href="https://fonts.googleapis.com/css?family=Indie+Flower|Lobster" rel="stylesheet">
 
   </head>
   <body>
 
+    <!-- Main container for the game -->
     <div class="container">
+      <!-- Title that displays game results (updated by JavaScript) -->
+      <!-- Beginner note: The text here will change after the dice roll. -->
+      <!-- When the page loads the JavaScript runs and replaces this text. -->
+      <!-- Try editing this text to see how the page updates when you refresh. -->
       <h1>Refresh Me</h1>
 
+      <!-- Player 1 section with dice display -->
       <div class="dice">
         <p>Player 1</p>
+        <!-- Dice image for Player 1 - randomly selected by JavaScript -->
         <img class="img1" src="images/dice6.png">
       </div>
 
+      <!-- Player 2 section with dice display -->
       <div class="dice">
         <p>Player 2</p>
+        <!-- Dice image for Player 2 - randomly selected by JavaScript -->
         <img class="img2" src="images/dice6.png">
       </div>
 
     </div>
 
+    <!-- Link to JavaScript file that handles game logic -->
+    <!-- Beginner note: The script is loaded here (end of <body>) so it can access
+         elements defined above. Loading the script after HTML is a common pattern.
+         If you move the script to the <head>, wrap code in a DOMContentLoaded listener. -->
     <script src="index.js" charset="utf-8"></script>
 
       </body>
 
+      <!-- Footer with game attribution -->
+      <!-- Beginner note: Footer appears at the bottom of the page. -->
       <footer>
         www 🎲 App Brewery 🎲 com
       </footer>
+
+    <!-- Quick usage instructions for beginners:
+         1) Open this file in a browser (double-click the file or use a local server).
+         2) Refresh the page to roll the dice (the JS runs automatically).
+         3) The heading will update to show which player won.
+         4) Dice images live in the images/ folder and are named dice1.png to dice6.png.
+         5) Experiment: change one of the <img> src attributes manually to see immediate results.
+    -->
+
     </html>

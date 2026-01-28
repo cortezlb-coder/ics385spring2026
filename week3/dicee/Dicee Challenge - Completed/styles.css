@@ -1,41 +1,62 @@
+/* ========================================
+   DICEE GAME - STYLESHEET
+   ======================================== */
+/* Main container - centers content and sets width */
 .container {
+  /* width in percent is relative to the page width; 70% is a comfortable reading width */
   width: 70%;
-  margin: auto;
-  text-align: center;
+  margin: auto;           /* Centers the container horizontally */
+  text-align: center;     /* Centers inline content like images and text */
 }
 
+/* Individual dice player section */
 .dice {
   text-align: center;
-  display: inline-block;
-
+  display: inline-block;  /* inline-block lets elements sit side-by-side while keeping block features */
+  /* Beginner note: inline-block keeps elements on the same line but still allows width/height. */
 }
 
+/* Page background styling */
 body {
-  background-color: #393E46;
+  background-color: #393E46; /* Dark gray background for contrast with bright dice */
 }
 
+/* Main heading - displays game result */
+/* Beginner note: Fonts can be set by name and a fallback family (cursive here). */
 h1 {
-  margin: 30px;
-  font-family: 'Lobster', cursive;
-  text-shadow: 5px 0 #232931;
-  font-size: 8rem;
-  color: #4ECCA3;
+  margin: 30px;                        /* Space around the heading */
+  font-family: 'Lobster', cursive;     /* Decorative font loaded from Google Fonts */
+  text-shadow: 5px 0 #232931;          /* Adds a simple shadow for depth */
+  font-size: 8rem;                     /* Very large text size; rem is relative to root font-size */
+  color: #4ECCA3;                      /* Bright teal color to stand out */
 }
 
+/* Player name labels */
 p {
-  font-size: 2rem;
-  color: #4ECCA3;
-  font-family: 'Indie Flower', cursive;
+  font-size: 2rem;                     /* Larger than normal paragraph text */
+  color: #4ECCA3;                      /* Matches the heading for consistent color palette */
+  font-family: 'Indie Flower', cursive; /* Handwritten-style font for player labels */
 }
 
+/* Dice images */
+/* Beginner note: width: 80% makes the image scale relative to its container. */
 img {
-  width: 80%;
+  width: 80%;                           /* Keeps images responsive across screen sizes */
+  display: block;                       /* Ensures proper vertical spacing inside .dice */
+  margin: 0 auto;                       /* Center the image inside its container */
 }
 
+/* Page footer */
+/* Beginner note: Colors are hex values. #EEEEEE is a light gray. */
 footer {
   margin-top: 5%;
-  color: #EEEEEE;
+  color: #EEEEEE;                       /* Light gray text for the footer */
   text-align: center;
   font-family: 'Indie Flower', cursive;
-
 }
+
+/* Quick CSS tips for beginners:
+   - Use percentages for responsive sizing, px for fixed sizes, rem/em for scalable text.
+   - 'margin: auto' horizontally centers a block with a set width.
+   - Experiment by changing colors and sizes, then refresh the page to see results.
+*/
