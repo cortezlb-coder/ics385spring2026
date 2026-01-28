@@ -38,12 +38,46 @@ p {
   font-family: 'Indie Flower', cursive; /* Handwritten-style font for player labels */
 }
 
+/* Score display */
+.score {
+  font-size: 1.5rem;
+  margin-top: 10px;
+  color: #FFD700;  /* Gold color for scores */
+}
+
 /* Dice images */
 /* Beginner note: width: 80% makes the image scale relative to its container. */
 img {
   width: 80%;                           /* Keeps images responsive across screen sizes */
   display: block;                       /* Ensures proper vertical spacing inside .dice */
   margin: 0 auto;                       /* Center the image inside its container */
+}
+
+/* Roll and Reset Buttons */
+button {
+  background-color: #4ECCA3;            /* Bright teal background */
+  border: none;                         /* Remove default border */
+  padding: 15px 30px;                   /* Internal spacing */
+  margin: 20px 10px;                    /* Space around buttons */
+  font-size: 1.5rem;                    /* Large, readable text */
+  font-family: 'Indie Flower', cursive; /* Match the game's font style */
+  color: #232931;                       /* Dark text for contrast */
+  border-radius: 8px;                   /* Slightly rounded corners */
+  cursor: pointer;                      /* Change cursor to pointer on hover */
+  transition: all 0.3s ease;            /* Smooth transition for hover effects */
+  font-weight: bold;                    /* Make text stand out */
+}
+
+/* Button hover effect */
+button:hover {
+  background-color: #FFD700;            /* Gold on hover */
+  transform: scale(1.05);               /* Slightly enlarge on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Add shadow for depth */
+}
+
+/* Button active (clicked) effect */
+button:active {
+  transform: scale(0.98);               /* Slightly shrink when clicked */
 }
 
 /* Page footer */
@@ -54,9 +88,3 @@ footer {
   text-align: center;
   font-family: 'Indie Flower', cursive;
 }
-
-/* Quick CSS tips for beginners:
-   - Use percentages for responsive sizing, px for fixed sizes, rem/em for scalable text.
-   - 'margin: auto' horizontally centers a block with a set width.
-   - Experiment by changing colors and sizes, then refresh the page to see results.
-*/

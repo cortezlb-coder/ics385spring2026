@@ -18,16 +18,15 @@
     <!-- Main container for the game -->
     <div class="container">
       <!-- Title that displays game results (updated by JavaScript) -->
-      <!-- Beginner note: The text here will change after the dice roll. -->
-      <!-- When the page loads the JavaScript runs and replaces this text. -->
-      <!-- Try editing this text to see how the page updates when you refresh. -->
-      <h1>Refresh Me</h1>
+      <h1>Let's Play Dicee!</h1>
 
       <!-- Player 1 section with dice display -->
       <div class="dice">
         <p>Player 1</p>
         <!-- Dice image for Player 1 - randomly selected by JavaScript -->
         <img class="img1" src="images/dice6.png">
+        <!-- Win counter for Player 1 -->
+        <p class="score">Wins: <span id="player1-wins">0</span></p>
       </div>
 
       <!-- Player 2 section with dice display -->
@@ -35,7 +34,13 @@
         <p>Player 2</p>
         <!-- Dice image for Player 2 - randomly selected by JavaScript -->
         <img class="img2" src="images/dice6.png">
+        <!-- Win counter for Player 2 -->
+        <p class="score">Wins: <span id="player2-wins">0</span></p>
       </div>
+
+      <!-- Roll Button -->
+      <button id="roll-button">🎲 Roll Dice</button>
+      <button id="reset-button">Reset Scores</button>
 
     </div>
 
