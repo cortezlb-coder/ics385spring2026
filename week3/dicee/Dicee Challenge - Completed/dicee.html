@@ -23,6 +23,11 @@ make layout so all three dice blocks fit on one row with some space between them
 
 asked to clean up and comment the code for better understanding and readability and organize it
  
+added dice-roll sound when button is clicked 
+do it each time reroll is clicked
+
+
+
 Finally i compared the code to the original and so i can learn the differences
  -->
 
@@ -45,7 +50,7 @@ Finally i compared the code to the original and so i can learn the differences
     <div class="container"> <!-- A wrapper box to keep everything centered. -->
       <p class="instructions">Higher roll wins!</p> <!-- Game instructions -->
       <h1>Refresh this page to reroll!</h1> <!-- Big title. JavaScript will change this text. -->
-      <button class="reroll-button" onclick="location.reload()">Click here for REROLL</button> <!-- Button that reloads the page -->
+      <button class="reroll-button" onclick="playSoundAndReroll()">Click here for REROLL</button> <!-- Button that reloads the page -->
 
       <div class="dice-row"> <!-- Row container so all three dice stay on one line -->
         <div class="dice"> <!-- Box for player 1’s text and picture. -->
@@ -67,6 +72,9 @@ Finally i compared the code to the original and so i can learn the differences
     </div> <!-- End the wrapper box. -->
 
     <script src="index.js" charset="utf-8"></script> <!-- Load the JavaScript that rolls the dice. -->
+
+    <!-- Dice roll sound effect -->
+    <audio id="diceSound" src="dice-roll.mp3"></audio>
 
       </body> <!-- End of the body section. -->
 

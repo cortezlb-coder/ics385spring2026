@@ -9,6 +9,15 @@
   ================================================
 */
 
+// ====== FUNCTION: Play sound and reroll ======
+function playSoundAndReroll() {
+  var diceSound = document.getElementById("diceSound");
+  diceSound.play(); // Play the dice roll sound
+  setTimeout(function() {
+    location.reload(); // Reload after sound plays
+  }, 500); // Wait 500ms for sound to play
+}
+
 
 
 
