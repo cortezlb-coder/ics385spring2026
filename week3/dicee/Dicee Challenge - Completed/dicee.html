@@ -1,0 +1,79 @@
+<!--
+Admin: Lexter Cortez
+Project: Diccee Challenge - Completed
+Course: ICS 385
+Date: Jan 30, 2026
+Description: Week 3 
+
+
+ AI prompts used: 
+ asked AI to explain line by line for a beginner programmer
+
+ can you make it so the refresh me shows? Make it say "Refresh this page to reroll!" fixed so it shows, adjusted the look
+
+ make it a button instead that says "click here for REROLL"
+
+ Add a third dice block in the HTML.
+Update CSS if needed for layout.''
+
+Update JS to roll three dice, show all three images.
+Set winner to the highest number; if the top two are equal (like 5,5,4), show “Draw” (no winner).
+ 
+make layout so all three dice blocks fit on one row with some space between them. and fit without scrolling
+
+asked to clean up and comment the code for better understanding and readability and organize it
+ 
+Finally i compared the code to the original and so i can learn the differences
+ -->
+
+
+
+
+
+
+
+<!DOCTYPE html> <!-- HTML5 document type -->
+<html lang="en" dir="ltr"> <!-- English language, left-to-right text -->
+  <head> <!-- Page setup (not visible to user) -->
+    <meta charset="utf-8"> <!-- UTF-8 encoding for emojis and special characters -->
+    <title>Dicee</title> <!-- Browser tab title -->
+    <link rel="stylesheet" href="styles.css"> <!-- Import CSS styling -->
+    <link href="https://fonts.googleapis.com/css?family=Indie+Flower|Lobster" rel="stylesheet"> <!-- Google Fonts -->
+  </head> <!-- End head section -->
+  <body> <!-- The body is everything you can see on the page. -->
+
+    <div class="container"> <!-- A wrapper box to keep everything centered. -->
+      <p class="instructions">Higher roll wins!</p> <!-- Game instructions -->
+      <h1>Refresh this page to reroll!</h1> <!-- Big title. JavaScript will change this text. -->
+      <button class="reroll-button" onclick="location.reload()">Click here for REROLL</button> <!-- Button that reloads the page -->
+
+      <div class="dice-row"> <!-- Row container so all three dice stay on one line -->
+        <div class="dice"> <!-- Box for player 1’s text and picture. -->
+          <p>Player 1</p> <!-- Label for player 1. -->
+          <img class="img1" src="images/dice6.png"> <!-- Player 1’s dice image (starting picture). -->
+        </div> <!-- End player 1 box. -->
+
+        <div class="dice"> <!-- Box for player 2’s text and picture. -->
+          <p>Player 2</p> <!-- Label for player 2. -->
+          <img class="img2" src="images/dice6.png"> <!-- Player 2’s dice image (starting picture). -->
+        </div> <!-- End player 2 box. -->
+
+        <div class="dice"> <!-- Box for player 3’s text and picture. -->
+          <p>Player 3</p> <!-- Label for player 3. -->
+          <img class="img3" src="images/dice6.png"> <!-- Player 3’s dice image (starting picture). -->
+        </div> <!-- End player 3 box. -->
+      </div> <!-- End dice row -->
+
+    </div> <!-- End the wrapper box. -->
+
+    <script src="index.js" charset="utf-8"></script> <!-- Load the JavaScript that rolls the dice. -->
+
+      </body> <!-- End of the body section. -->
+
+      <footer> <!-- Footer = bottom text area of the page. -->
+        www 🎲 App Brewery 🎲 com <!-- The actual footer text. -->
+      </footer> <!-- End footer. -->
+    </html> <!-- End of the HTML page. -->
+
+
+

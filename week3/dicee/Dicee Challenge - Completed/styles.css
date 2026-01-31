@@ -1,0 +1,98 @@
+/*
+  ================================================
+  DICEE CHALLENGE - STYLING
+  ================================================
+  Admin: Lexter Cortez
+  Course: ICS 385
+  Description: CSS styles for dice game
+  ================================================
+*/
+
+
+
+
+
+
+
+
+/* ========== PAGE BACKGROUND ========== */
+body {
+  background-color: #393E46; /* Dark gray-blue background */
+}
+
+/* ========== LAYOUT & CONTAINERS ========== */
+.container {
+  width: 90%; /* 90% of screen width */
+  margin: auto; /* Center container */
+  text-align: center; /* Center text inside */
+}
+
+.dice-row {
+  display: flex; /* Row layout */
+  justify-content: space-between; /* Spread dice evenly */
+  align-items: flex-start; /* Align tops */
+  gap: 10px; /* Space between dice */
+  margin-top: 20px; /* Space from button */
+}
+
+.dice {
+  text-align: center; /* Center text in dice block */
+  width: 32%; /* Width so three fit in row */
+}
+
+/* ========== TEXT STYLES ========== */
+h1 {
+  margin: 20px; /* Space around heading */
+  font-family: 'Lobster', cursive; /* Decorative font */
+  text-shadow: 5px 0 #232931; /* Shadow effect */
+  font-size: 5rem; /* Large title */
+  color: #4ECCA3; /* Light green */
+}
+
+p {
+  font-size: 2rem; /* Large text */
+  color: #4ECCA3; /* Light green */
+  font-family: 'Indie Flower', cursive; /* Handwriting font */
+}
+
+.instructions {
+  font-size: 2.5rem; /* Much larger text */
+  margin: 20px 0; /* Space above and below */
+  color: #FFFFFF; /* White text */
+  background: linear-gradient(135deg, #4ECCA3, #45B69D); /* Green gradient background */
+  padding: 20px 40px; /* Generous inner spacing */
+  border-radius: 15px; /* Rounded corners */
+  display: inline-block; /* Wrap tightly around text */
+  font-weight: bold; /* Bold text */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Shadow for depth */
+  letter-spacing: 1px; /* Spacing between letters */
+}
+
+.reroll-button { /* .reroll-button styles the clickable reroll button */
+  font-size: 1.5rem; /* Big text so it’s easy to read */
+  font-weight: bold; /* Make the text stand out */
+  color: #4ECCA3; /* Use the same green as the heading */
+  background-color: #232931; /* Dark background to match the theme */
+  padding: 12px 24px; /* Space inside the button */
+  border-radius: 10px; /* Rounded corners */
+  border: 3px solid #4ECCA3; /* Green border to match the theme */
+  cursor: pointer; /* Show a hand cursor on hover */
+  margin-top: 10px; /* Space below the heading */
+} /* End of the .reroll-button style block */
+
+.reroll-button:hover { /* When the mouse is over the button */
+  background-color: #4ECCA3; /* Flip to green on hover */
+  color: #232931; /* Dark text for contrast */
+} /* End hover style */
+
+img { /* img means all images */
+  width: 80%; /* Make the dice images smaller than their box */
+} /* End of the img style block */
+
+footer { /* footer is the text at the very bottom */
+  margin-top: 5%; /* Add space above the footer */
+  color: #EEEEEE; /* Light gray text color */
+  text-align: center; /* Center the footer text */
+  font-family: 'Indie Flower', cursive; /* Use the Indie Flower font */
+
+} /* End of the footer style block */
