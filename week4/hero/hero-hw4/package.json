@@ -9,7 +9,9 @@
   "author": "DebasisB",
   "license": "ISC",
   "dependencies": {
+    "famous-last-words": "^0.6.0",
     "inspirational-quotes": "^1.0.8",
+    "popular-movie-quotes": "^1.2.4",
     "superheroes": "^3.0.0",
     "supervillains": "^3.0.0"
   }
