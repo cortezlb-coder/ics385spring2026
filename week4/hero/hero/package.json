@@ -1,0 +1,16 @@
+{
+  "name": "week3",
+  "version": "1.0.0",
+  "description": "Week 3 code",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "DebasisB",
+  "license": "ISC",
+  "dependencies": {
+    "inspirational-quotes": "^1.0.8",
+    "superheroes": "^3.0.0",
+    "supervillains": "^3.0.0"
+  }
+}
