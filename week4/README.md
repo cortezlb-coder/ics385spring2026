@@ -1,0 +1,8 @@
+# ICS 385 Spring 2026
+WEEK 4
+PROJECTS:
+
+HERO
+
+
+QRCODE
