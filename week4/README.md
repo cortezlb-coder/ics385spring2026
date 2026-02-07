@@ -6,5 +6,3 @@ HERO
 - node index.js to begin
 - builds on the hero project by adding additional npm packages and writing generated output to individual text files while reinforcing basic Node.js and npm concepts
 
-
-QRCODE
