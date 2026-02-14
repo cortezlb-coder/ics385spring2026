@@ -10,6 +10,7 @@ QR CODE PROJECT
 - Builds on the QR code example by improving user interaction, validation, and documentation
 
 NOTES From ADMIN
--Made the code more friendly to understand what happening, struggled with figuring where to start
--Worked a lot on the index.js to give clear instructions to the best of my ability and make it so anyone can just dive in
--More clear feedback on whether it succeeded 
+- Made the code more friendly to understand what happening, struggled with figuring where to start
+- Worked a lot on the index.js to give clear instructions to the best of my ability and make it so anyone can just dive in
+- More clear feedback on whether it succeeded
+- Realized those packages can have a lot of files no joke
