@@ -1,8 +1,9 @@
 # WEEK 5 
 ## PROJECTS NOTES
 
-/f2c 
-- struggled a lot on this one, but learned more about .js and how it goes from getting a path / and the corresponding .html appearing 
-- node index.js to begin
-- referenced a LOT from the bmi calculator and learned what to change such as float to integer
+/Secret project
+- learned a lot about the BTS of a simple log in screen and how much a programmer has to consider in terms of security
+- never has passwords exposed in plaintext
+- played around a bunch to see if I can secure the log in page to prevent brute force attacks
+- I am also considered how to prevent denial of service attacks since I assume having so much sessions requesting can cause a huge strain on a server
 
