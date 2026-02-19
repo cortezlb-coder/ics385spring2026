@@ -1,3 +1,16 @@
+/*
+ Project: To Do List Web App
+  Admin: Lexter Cortez
+  Course: ICS 385
+  Date: 2/18/2026
+  Description: This is a web app that allows users to create a to do list. The user can also add additional items to list.
+  Changes: adding 2 seperate lists. Chores list and camping list amd add routes to /chores and /camping. Also including preset array for each list. 
+*/
+
+
+
+
+
 //jshint esversion:6
 
 const express = require("express");
@@ -13,7 +26,10 @@ let items = ["Buy Food", "Prepare Food", "Cook Food", "Eat Food", "Clean Plates"
 // set an empty array for new work items
 let workItems = ["Show Up", "Get Settled", "Drink Coffee"];
 
-// setup an array for Fun and another for Weekend
+// setup an array for Chores and another for Weekend
+let choresItems = ["Do Laundry", "Clean Bathroom", "Wash Dishes"];
+let campingItems = ["Smores Ingredients", "Pack tent", "Bring fish poles"];
+
 
 // set EJS as the viewing engine to display html
 app.set('view engine', 'ejs');
@@ -27,33 +43,50 @@ app.use(express.static("public"));
 // default html file in web server
 app.get("/", function(req, res) {
 
-    //get the system date from the getDate function exported by the date.js file
-    let day = date.getDate();
     
     // use EJS render to display the day and the To Do List
-    res.render("list", {listTitle: day, newListItems: items});
+    res.render("list", { listTitle: "Work", newListItems: workItems });
     
 });
 
-// display default to do list on the default root folder
-app.post("/", function(req, res) {
+
+// route for the chores list
+app.get("/chores", function(req, res) {
+
     
-    // code allows items to be added to the regular list and work list
-    let item = req.body.newItem;
+  // changed list title to chores
+res.render("list", { listTitle: "Chores", newListItems: choresItems });
+});
+
+
+
+// route for camping list
+app.get("/camping", function(req, res) {
+
     
-    // if route is /work, add to work list
-  // if list === Fun then go to /fun
-  // if list ==== Weekend then go to /weekend
+   // changed list title to camping 
+    res.render("list", { listTitle: "Camping", newListItems: campingItems });
+    
+});
+
+
   
-    if (req.body.list === "Work") {
-        workItems.push(item);
-        res.redirect("/work");
-    } 
-    
-    else {
-        items.push(item);
-        res.redirect("/");
-    }
+app.post("/", function(req, res) { //tidy and added chores and camoping lists
+  let item = req.body.newItem;
+
+  if (req.body.list === "Work") {
+    workItems.push(item);
+    res.redirect("/work");
+  } else if (req.body.list === "Chores") {
+    choresItems.push(item);
+    res.redirect("/chores");
+  } else if (req.body.list === "Camping") {
+    campingItems.push(item);
+    res.redirect("/camping");
+  } else {
+    items.push(item);
+    res.redirect("/");
+  }
 });
 
 // display default to do list on the localhost:3000/work route!
