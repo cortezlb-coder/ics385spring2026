@@ -7,5 +7,5 @@
 - I thought it was gonna be easier just by changing the array information but I had to make a couple of changes in some .ejs files as well
 - Programming so far is a lot of pattern recognition in order to make changes that are relevant to you. 
 - Enjoy this one, minimal AI usage for understaning the code. 
-
+- Solution.js is main
 
