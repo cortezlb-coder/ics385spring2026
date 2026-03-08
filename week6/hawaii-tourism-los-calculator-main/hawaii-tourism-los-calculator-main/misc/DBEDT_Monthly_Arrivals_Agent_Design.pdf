@@ -1,0 +1,122 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 2237 >>
+stream
+BT
+/F1 12 Tf
+72 740 Td
+(DBEDT Monthly Arrivals Checker - Agent Design) Tj
+0 -14 Td
+(Objective:) Tj
+0 -14 Td
+(- Monitor monthly arrivals from DBEDT.) Tj
+0 -14 Td
+(- Validate integrity, detect anomalies, and report results.) Tj
+0 -14 Td
+(Data Source and Config:) Tj
+0 -14 Td
+(- DBEDT dataset URL as CSV, XLSX, or API endpoint.) Tj
+0 -14 Td
+(- Column mapping: month, arrivals, category, island.) Tj
+0 -14 Td
+(- Update cadence and thresholds for MoM, YoY, z-score.) Tj
+0 -14 Td
+(Workflow:) Tj
+0 -14 Td
+(1\) Check source last updated or file hash.) Tj
+0 -14 Td
+(2\) Download data with retries and store raw file.) Tj
+0 -14 Td
+(3\) Parse and normalize to month, arrivals, category, island.) Tj
+0 -14 Td
+(4\) Validate schema, missing months, duplicates, negatives.) Tj
+0 -14 Td
+(5\) Analyze MoM, YoY, rolling averages, and z-scores.) Tj
+0 -14 Td
+(6\) Store snapshots and anomalies in SQLite.) Tj
+0 -14 Td
+(7\) Generate report and notify if needed.) Tj
+0 -14 Td
+(Validation Rules:) Tj
+0 -14 Td
+(- Required columns present and non-empty.) Tj
+0 -14 Td
+(- Month format YYYY-MM; no future months.) Tj
+0 -14 Td
+(- No missing months per category and island series.) Tj
+0 -14 Td
+(- No duplicate months per series.) Tj
+0 -14 Td
+(- Arrivals must be numeric and >= 0.) Tj
+0 -14 Td
+(Anomaly Detection:) Tj
+0 -14 Td
+(- MoM change >= 50 percent, configurable.) Tj
+0 -14 Td
+(- YoY change >= 40 percent, configurable.) Tj
+0 -14 Td
+(- Z-score >= 3.0 over last 36 months.) Tj
+0 -14 Td
+(Outputs:) Tj
+0 -14 Td
+(- Reports: agent/reports/latest.json and latest.md.) Tj
+0 -14 Td
+(- Storage: agent/data/arrivals.db using SQLite.) Tj
+0 -14 Td
+(- Alerts: Slack or webhook on errors or anomalies.) Tj
+0 -14 Td
+(Key Files:) Tj
+0 -14 Td
+(- agent/run.js orchestration) Tj
+0 -14 Td
+(- agent/lib/downloader.js) Tj
+0 -14 Td
+(- agent/lib/parser.js) Tj
+0 -14 Td
+(- agent/lib/validator.js) Tj
+0 -14 Td
+(- agent/lib/analyzer.js) Tj
+0 -14 Td
+(- agent/lib/storage.js) Tj
+0 -14 Td
+(- agent/lib/reporter.js) Tj
+0 -14 Td
+(- agent/config/defaults.json and .env) Tj
+0 -14 Td
+(Scheduling:) Tj
+0 -14 Td
+(- Cron: 0 6 * * * node agent/run.js) Tj
+0 -14 Td
+(Acceptance:) Tj
+0 -14 Td
+(- New data detected, validated, stored, reported.) Tj
+0 -14 Td
+(- Anomalies flagged with clear context.) Tj
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000241 00000 n 
+0000002530 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+2600
+%%EOF

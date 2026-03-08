@@ -1,0 +1,19 @@
+<%- include("partials/solution-header.ejs") %>
+
+  <% if (locals.courseID && locals.courseName) { %> 
+    <h1>
+      <%= courseID  %> <!-- changed line 3-9 to reflect course ID and name -->
+        <%= courseName %>
+    </h1>
+    <% } else { %>
+      <h1>Welcome to the UHMC Course Generator 🤟</h1>
+      <% } %>
+
+
+
+        <form action="/submit" method="POST">
+          <input type="submit" value="Generate Name">
+        </form>
+
+
+        <%- include("partials/solution-footer.ejs") %>

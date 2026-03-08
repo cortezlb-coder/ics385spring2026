@@ -1,0 +1,166 @@
+/*
+  ================================================
+  SIMON GAME - STYLING
+  ================================================
+  Admin: Lexter Cortez
+  Course: ICS 385
+  Description: CSS styles for Simon memory game
+  ================================================
+*/
+
+/* ============================================ */
+/* PAGE LAYOUT */
+/* ============================================ */
+
+body {
+  text-align: center;
+  background-color: #011F3F; /* Dark blue */
+}
+
+#game-title {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 4rem;
+  margin: 3% 0 2% 0;
+  color: #FEF2BF; /* Yellow/beige */
+  text-shadow: 0 0 20px #FEF2BF; /* Glow effect */
+}
+
+#game-instructions {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 1rem;
+  color: #FEF2BF;
+  margin: 10px auto;
+  padding: 0 20px;
+  max-width: 600px;
+  line-height: 1.6;
+}
+
+#level-title {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 2rem;
+  margin: 2% 0;
+  color: #FEF2BF;
+}
+
+#level-counter {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 1.5rem;
+  color: #FEF2BF;
+  margin: 20px 0 40px 0;
+  text-align: center;
+  min-height: 50px;
+}
+
+#counter-message {
+  color: #FEF2BF;
+}
+
+.counter-label {
+  color: #FEF2BF;
+  margin-right: 10px;
+}
+
+#counter-value {
+  color: #00FF00; /* Bright green */
+  font-size: 2rem;
+  text-shadow: 0 0 10px #00FF00; /* Glow effect */
+}
+
+/* ============================================ */
+/* CHALLENGE MODE BUTTON */
+/* ============================================ */
+
+/* Styles for the challenge mode button */
+.mode-btn {
+  font-family: 'Press Start 2P', cursive; /* Retro font */
+  font-size: 0.8rem; /* Smaller text */
+  background-color: #4CAF50; /* Green background */
+  color: white; /* White text */
+  border: 3px solid #45a049; /* Darker green border */
+  padding: 10px 20px; /* Padding inside button */
+  margin: 20px auto; /* Center with margin */
+  cursor: pointer; /* Show it's clickable */
+  border-radius: 5px; /* Slightly rounded corners */
+  transition: all 0.3s ease; /* Smooth transitions */
+  display: block; /* Make it a block so margin: auto works */
+}
+
+.mode-btn:hover {
+  background-color: #45a049; /* Darker on hover */
+  transform: scale(1.05); /* Slightly bigger on hover */
+}
+
+/* Active state when challenge mode is on */
+.mode-btn.active {
+  background-color: #FF6B00; /* Orange when active */
+  border-color: #CC5500; /* Darker orange border */
+  box-shadow: 0 0 20px #FF6B00; /* Glowing effect */
+}
+
+/* Styles for the container that holds buttons */
+.container {
+  display: block; /* Makes it a block element */
+  width: 50%; /* Width is 50% of screen */
+  margin: auto; /* Centers it horizontally */
+}
+
+/* ============================================ */
+/* BUTTON STYLES */
+/* ============================================ */
+
+/* Styles for all buttons */
+.btn {
+  margin: 25px; /* 25px margin around each button */
+  display: inline-block; /* Sit side by side */
+  height: 200px; /* 200px tall */
+  width: 200px; /* 200px wide (makes it square) */
+  border: 10px solid black; /* 10px thick black border */
+  border-radius: 20%; /* 20% rounded corners */
+  cursor: pointer; /* Show it's clickable */
+  transition: all 0.1s ease; /* Smooth transitions */
+}
+
+/* Disabled state for buttons */
+.btn.disabled {
+  opacity: 0.5; /* Make slightly transparent */
+  cursor: not-allowed; /* Show it's not clickable */
+}
+
+/* Disabled state for buttons */
+.btn.disabled {
+  opacity: 0.5; /* Make slightly transparent */
+  cursor: not-allowed; /* Show it's not clickable */
+}
+
+/* Individual button colors */
+.red {
+  background-color: red;
+}
+
+.green {
+  background-color: green;
+}
+
+.blue {
+  background-color: blue;
+}
+
+.yellow {
+  background-color: yellow;
+}
+
+/* ============================================ */
+/* GAME STATES */
+/* ============================================ */
+
+/* Styles for when a button is pressed */
+.pressed {
+  box-shadow: 0 0 20px white; /* White glow effect */
+  background-color: grey; /* Background turns grey */
+}
+
+/* Styles for game-over state (red flash) */
+.game-over {
+  background-color: red; /* Changes background to red */
+  opacity: 0.8; /* 80% opacity (slightly see-through) */
+}

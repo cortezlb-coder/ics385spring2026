@@ -1,0 +1,227 @@
+{
+  "university": "University of Hawaii Maui College",
+  "semester": "Spring 2026",
+  "lastUpdated": "2026-03-03",
+  "departments": [
+    {
+      "code": "ICS",
+      "name": "Information and Computer Sciences",
+      "chair": "Dr. Debasis Bhattacharya",
+      "courses": [
+        {
+          "courseCode": "ICS 385",
+          "title": "Web Development and Administration",
+          "credits": 3,
+          "description": "Detailed knowledge of web page authoring and server-side programming.",
+          "prerequisites": ["ICS 320"],
+          "instructor": {
+            "name": "Dr. Debasis Bhattacharya",
+            "email": "debasis@hawaii.edu",
+            "office": "Kaaike 114"
+          },
+          "schedule": {
+            "days": ["Tuesday"],
+            "time": "4:30 PM - 5:45 PM",
+            "location": "Online (Zoom)",
+            "capacity": 25,
+            "enrolled": 18
+          },
+          "isActive": true,
+          "topics": ["HTML", "CSS", "JavaScript", "Node.js", "APIs", "React"],
+          "assignments": [
+            {"name": "Week 1 Setup", "points": 10, "dueDate": "2026-01-19"},
+            {"name": "Midterm Project", "points": 100, "dueDate": "2026-03-10"}
+          ]
+        },
+        {
+          "courseCode": "ICS 101",
+          "title": "Digital Tools for the Information World",
+          "credits": 3,
+          "description": "Introduction to productivity tools, digital literacy, and cloud applications.",
+          "prerequisites": [],
+          "instructor": {
+            "name": "Prof. Alan Kim",
+            "email": "alan.kim@hawaii.edu",
+            "office": "Kaaike 110"
+          },
+          "schedule": {
+            "days": ["Monday", "Wednesday"],
+            "time": "9:00 AM - 10:15 AM",
+            "location": "Kaaike 203",
+            "capacity": 30,
+            "enrolled": 27
+          },
+          "isActive": true,
+          "topics": ["Google Workspace", "Digital Security", "Cloud Storage"],
+          "assignments": [
+            {"name": "Lab 1", "points": 20, "dueDate": "2026-01-22"}
+          ]
+        },
+        {
+          "courseCode": "ICS 169",
+          "title": "Introduction to Information Security",
+          "credits": 3,
+          "description": "Fundamentals of cybersecurity, risk management, and secure systems.",
+          "prerequisites": [],
+          "instructor": {
+            "name": "Dr. Laura Chen",
+            "email": "laura.chen@hawaii.edu",
+            "office": "Kaaike 118"
+          },
+          "schedule": {
+            "days": ["Thursday"],
+            "time": "1:00 PM - 3:45 PM",
+            "location": "Kaaike 210",
+            "capacity": 28,
+            "enrolled": 20
+          },
+          "isActive": true,
+          "topics": ["Encryption", "Network Security", "Threat Analysis"],
+          "assignments": [
+            {"name": "Security Report", "points": 50, "dueDate": "2026-02-15"}
+          ]
+        }
+      ]
+    },
+    {
+      "code": "MATH",
+      "name": "Mathematics",
+      "chair": "Dr. Robert Johnson",
+      "courses": [
+        {
+          "courseCode": "MATH 140",
+          "title": "Calculus I",
+          "credits": 4,
+          "description": "Limits, derivatives, and applications of derivatives.",
+          "prerequisites": ["MATH 135"],
+          "instructor": {
+            "name": "Dr. Sarah Wilson",
+            "email": "sarah.wilson@hawaii.edu",
+            "office": "AC 201"
+          },
+          "schedule": {
+            "days": ["Monday", "Wednesday", "Friday"],
+            "time": "10:00 AM - 10:50 AM",
+            "location": "AC 105",
+            "capacity": 30,
+            "enrolled": 25
+          },
+          "isActive": true,
+          "topics": ["Limits", "Derivatives", "Integration"],
+          "assignments": [
+            {"name": "Homework 1", "points": 20, "dueDate": "2026-01-20"}
+          ]
+        },
+        {
+          "courseCode": "MATH 115",
+          "title": "Introduction to Statistics and Probability",
+          "credits": 3,
+          "description": "Descriptive statistics, probability concepts, and inferential statistics.",
+          "prerequisites": [],
+          "instructor": {
+            "name": "Prof. Emily Torres",
+            "email": "emily.torres@hawaii.edu",
+            "office": "AC 204"
+          },
+          "schedule": {
+            "days": ["Tuesday", "Thursday"],
+            "time": "11:00 AM - 12:15 PM",
+            "location": "AC 108",
+            "capacity": 35,
+            "enrolled": 29
+          },
+          "isActive": true,
+          "topics": ["Probability", "Regression", "Hypothesis Testing"],
+          "assignments": [
+            {"name": "Stats Project", "points": 60, "dueDate": "2026-03-18"}
+          ]
+        }
+      ]
+    },
+    {
+      "code": "BUS",
+      "name": "Business",
+      "chair": "Dr. Maria Lopez",
+      "courses": [
+        {
+          "courseCode": "BUS 120",
+          "title": "Principles of Business",
+          "credits": 3,
+          "description": "Introduction to business operations, management, and marketing.",
+          "prerequisites": [],
+          "instructor": {
+            "name": "Prof. Jason Lee",
+            "email": "jason.lee@hawaii.edu",
+            "office": "Pilina 301"
+          },
+          "schedule": {
+            "days": ["Monday", "Wednesday"],
+            "time": "2:00 PM - 3:15 PM",
+            "location": "Pilina 105",
+            "capacity": 40,
+            "enrolled": 35
+          },
+          "isActive": true,
+          "topics": ["Management", "Marketing", "Finance"],
+          "assignments": [
+            {"name": "Business Plan Outline", "points": 40, "dueDate": "2026-02-10"}
+          ]
+        },
+        {
+          "courseCode": "BUS 125",
+          "title": "Starting a Business",
+          "credits": 3,
+          "description": "Fundamentals of entrepreneurship and business planning.",
+          "prerequisites": [],
+          "instructor": {
+            "name": "Dr. Rachel Wong",
+            "email": "rachel.wong@hawaii.edu",
+            "office": "Pilina 302"
+          },
+          "schedule": {
+            "days": ["Tuesday"],
+            "time": "6:00 PM - 8:45 PM",
+            "location": "Pilina 210",
+            "capacity": 25,
+            "enrolled": 21
+          },
+          "isActive": true,
+          "topics": ["Entrepreneurship", "Finance Planning", "Market Research"],
+          "assignments": [
+            {"name": "Startup Proposal", "points": 80, "dueDate": "2026-03-25"}
+          ]
+        },
+        {
+          "courseCode": "BUS 130",
+          "title": "Business Communication: Oral",
+          "credits": 3,
+          "description": "Professional oral communication skills for business environments.",
+          "prerequisites": [],
+          "instructor": {
+            "name": "Prof. Daniel Cruz",
+            "email": "daniel.cruz@hawaii.edu",
+            "office": "Pilina 220"
+          },
+          "schedule": {
+            "days": ["Thursday"],
+            "time": "3:00 PM - 5:45 PM",
+            "location": "Pilina 120",
+            "capacity": 30,
+            "enrolled": 24
+          },
+          "isActive": true,
+          "topics": ["Public Speaking", "Presentations", "Leadership Communication"],
+          "assignments": [
+            {"name": "Speech Presentation", "points": 50, "dueDate": "2026-02-28"}
+          ]
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "totalCourses": 8,
+    "totalDepartments": 3,
+    "totalCreditsOffered": 25,
+    "academicYear": "2025-2026"
+  }
+}
