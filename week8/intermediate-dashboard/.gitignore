@@ -1,0 +1,8 @@
+# Never commit local environment secrets
+.env
+
+# Dependency folder
+node_modules/
+
+# Optional logs
+npm-debug.log*

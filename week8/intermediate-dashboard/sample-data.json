@@ -1,0 +1,150 @@
+{
+	"university": "University of Hawaii Maui College",
+	"semester": "Spring 2026",
+	"lastUpdated": "2026-03-03",
+	"departments": [
+		{
+			"code": "ICS",
+			"name": "Information and Computer Sciences",
+			"courses": [
+				{
+					"courseCode": "ICS 385",
+					"title": "Web Development and Administration",
+					"credits": 3,
+					"description": "Detailed knowledge of web page authoring and server-side programming.",
+					"instructor": {
+						"name": "Dr. Debasis Bhattacharya",
+						"email": "debasis@hawaii.edu",
+						"office": "Kaaike 114"
+					},
+					"schedule": {
+						"days": ["Tuesday"],
+						"time": "4:30 PM - 5:45 PM",
+						"location": "Online (Zoom)",
+						"capacity": 25,
+						"enrolled": 18
+					},
+					"isActive": true,
+					"topics": ["HTML", "CSS", "JavaScript", "Node.js", "APIs"]
+				},
+				{
+					"courseCode": "ICS 101",
+					"title": "Digital Tools for the Information World",
+					"credits": 3,
+					"description": "Introduction to productivity tools and digital literacy.",
+					"instructor": {
+						"name": "Prof. Alan Kim",
+						"email": "alan.kim@hawaii.edu",
+						"office": "Kaaike 110"
+					},
+					"schedule": {
+						"days": ["Monday", "Wednesday"],
+						"time": "9:00 AM - 10:15 AM",
+						"location": "Kaaike 203",
+						"capacity": 30,
+						"enrolled": 27
+					},
+					"isActive": true,
+					"topics": ["Google Workspace", "Digital Security"]
+				}
+			]
+		},
+		{
+			"code": "MATH",
+			"name": "Mathematics",
+			"courses": [
+				{
+					"courseCode": "MATH 140",
+					"title": "Calculus I",
+					"credits": 4,
+					"description": "Limits, derivatives, and applications of derivatives.",
+					"instructor": {
+						"name": "Dr. Sarah Wilson",
+						"email": "sarah.wilson@hawaii.edu",
+						"office": "AC 201"
+					},
+					"schedule": {
+						"days": ["Monday", "Wednesday", "Friday"],
+						"time": "10:00 AM - 10:50 AM",
+						"location": "AC 105",
+						"capacity": 30,
+						"enrolled": 25
+					},
+					"isActive": true,
+					"topics": ["Limits", "Derivatives", "Integration"]
+				},
+				{
+					"courseCode": "MATH 115",
+					"title": "Introduction to Statistics and Probability",
+					"credits": 3,
+					"description": "Descriptive statistics, probability, and inferential statistics.",
+					"instructor": {
+						"name": "Prof. Emily Torres",
+						"email": "emily.torres@hawaii.edu",
+						"office": "AC 204"
+					},
+					"schedule": {
+						"days": ["Tuesday", "Thursday"],
+						"time": "11:00 AM - 12:15 PM",
+						"location": "AC 108",
+						"capacity": 35,
+						"enrolled": 29
+					},
+					"isActive": true,
+					"topics": ["Probability", "Regression", "Hypothesis Testing"]
+				}
+			]
+		},
+		{
+			"code": "BUS",
+			"name": "Business",
+			"courses": [
+				{
+					"courseCode": "BUS 120",
+					"title": "Principles of Business",
+					"credits": 3,
+					"description": "Introduction to business operations, management, and marketing.",
+					"instructor": {
+						"name": "Prof. Jason Lee",
+						"email": "jason.lee@hawaii.edu",
+						"office": "Pilina 301"
+					},
+					"schedule": {
+						"days": ["Monday", "Wednesday"],
+						"time": "2:00 PM - 3:15 PM",
+						"location": "Pilina 105",
+						"capacity": 40,
+						"enrolled": 35
+					},
+					"isActive": true,
+					"topics": ["Management", "Marketing", "Finance"]
+				},
+				{
+					"courseCode": "BUS 125",
+					"title": "Starting a Business",
+					"credits": 3,
+					"description": "Fundamentals of entrepreneurship and business planning.",
+					"instructor": {
+						"name": "Dr. Rachel Wong",
+						"email": "rachel.wong@hawaii.edu",
+						"office": "Pilina 302"
+					},
+					"schedule": {
+						"days": ["Tuesday"],
+						"time": "6:00 PM - 8:45 PM",
+						"location": "Pilina 210",
+						"capacity": 25,
+						"enrolled": 21
+					},
+					"isActive": true,
+					"topics": ["Entrepreneurship", "Market Research"]
+				}
+			]
+		}
+	],
+	"metadata": {
+		"totalCourses": 6,
+		"totalDepartments": 3,
+		"academicYear": "2025-2026"
+	}
+}

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>UH Maui College - Campus Dashboard</title>
+		<link rel="stylesheet" href="styles.css" />
+	</head>
+	<body>
+		<header class="dashboard-header">
+			<div class="header-content">
+				<h1>UH Maui College Campus Dashboard</h1>
+				<div class="header-controls">
+					<button id="settingsBtn" class="header-btn" type="button">Settings</button>
+					<button id="refreshAllBtn" class="header-btn" type="button">Refresh All</button>
+					<button id="refreshWeatherBtn" class="header-btn" type="button">Refresh Weather</button>
+					<button id="refreshHumorBtn" class="header-btn" type="button">New Jokes</button>
+				</div>
+			</div>
+		</header>
+
+		<main id="dashboard-container" class="dashboard-grid">
+			<section class="stats-overview">
+				<div class="stat-card">
+					<span class="stat-number" id="total-courses">-</span>
+					<span class="stat-label">Courses</span>
+				</div>
+				<div class="stat-card">
+					<span class="stat-number" id="total-students">-</span>
+					<span class="stat-label">Students</span>
+				</div>
+				<div class="stat-card">
+					<span class="stat-number" id="avg-capacity">-</span>
+					<span class="stat-label">Capacity</span>
+				</div>
+				<div class="stat-card">
+					<span class="stat-number" id="api-status">-</span>
+					<span class="stat-label">API Status</span>
+				</div>
+			</section>
+
+			<section id="weather-widget" class="dashboard-widget weather-widget">
+				<div class="loading">Loading weather...</div>
+			</section>
+
+			<section class="dashboard-widget course-widget">
+				<div class="widget-header">
+					<h3>Course Management</h3>
+					<div class="widget-controls">
+						<input type="text" id="courseSearch" placeholder="Search courses..." />
+						<select id="departmentFilter">
+							<option value="all">All Departments</option>
+						</select>
+					</div>
+				</div>
+				<div id="coursesContainer" class="courses-grid">
+					<div class="loading">Loading courses...</div>
+				</div>
+			</section>
+
+			<section id="humor-widget" class="dashboard-widget humor-widget">
+				<div class="loading">Loading humor...</div>
+			</section>
+
+			<section class="dashboard-widget actions-widget">
+				<div class="widget-header">
+					<h3>Quick Actions</h3>
+				</div>
+				<div class="actions-grid">
+					<button class="action-btn" onclick="dashboard.addNewCourse()" type="button">Add Course</button>
+					<button class="action-btn" onclick="dashboard.exportData()" type="button">Export Data</button>
+					<button class="action-btn" onclick="dashboard.refreshWeather()" type="button">Update Weather</button>
+					<button class="action-btn" onclick="dashboard.refreshHumor()" type="button">New Jokes</button>
+				</div>
+			</section>
+
+			<div id="loading-overlay" class="loading-overlay" style="display: none">Loading dashboard...</div>
+		</main>
+
+		<div id="apiKeyModal" class="modal" style="display: none">
+			<div class="modal-content">
+				<h2>API Configuration Required</h2>
+				<p>Please configure your API keys to enable all dashboard features:</p>
+				<div class="api-key-setup">
+					<label for="openWeatherKey">OpenWeatherMap API Key:</label>
+					<input id="openWeatherKey" type="password" placeholder="Enter your OpenWeather API key" />
+
+					<label for="rapidApiKey">RapidAPI Key:</label>
+					<input id="rapidApiKey" type="password" placeholder="Enter your RapidAPI key" />
+
+					<div class="modal-actions">
+						<button id="saveApiKeysBtn" class="save-btn" type="button">Save Keys</button>
+						<button id="closeApiModalBtn" type="button">Skip</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="settingsModal" class="modal" style="display: none">
+			<div class="modal-content">
+				<h2>Dashboard Settings</h2>
+				<p>Set your preferred default city and weather refresh timing.</p>
+				<div class="api-key-setup">
+					<label for="settingsDefaultCity">Default City:</label>
+					<input id="settingsDefaultCity" type="text" placeholder="Kahului" />
+
+					<label for="settingsRefreshMinutes">Weather Refresh (minutes):</label>
+					<input id="settingsRefreshMinutes" type="number" min="1" value="10" />
+
+					<div class="modal-actions">
+						<button id="saveSettingsBtn" class="save-btn" type="button">Save Settings</button>
+						<button id="closeSettingsModalBtn" type="button">Cancel</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<footer>
+			<p>ICS 385 Week 8 - Intermediate Assignment | Multi-API Dashboard</p>
+		</footer>
+
+		<script src="config.js"></script>
+		<script src="api-client.js"></script>
+		<script src="course-catalog.js"></script>
+		<script src="dashboard.js"></script>
+	</body>
+</html>
