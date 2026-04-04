@@ -13,9 +13,9 @@ const atlasFallbackConnectionString = 'mongodb://cortez:12Maui34@ac-u5vzjcq-shar
 
 const customersToInsert = [
   {
-    firstName: 'John',
-    lastName: 'Doe',
-    email: 'john.doe@example.com',
+    firstName: 'Lexter',
+    lastName: 'Cortez',
+    email: 'lexter.cortez@example.com',
     phone: '555-123-4567'
   },
   {
@@ -42,7 +42,7 @@ const hotelsToInsert = [
   {
     name: 'Mountain View Lodge',
     rating: 4,
-    location: 'Maui, HI',
+    location: 'Wailuku, HI',
     description: 'Scenic lodge with volcano and valley views.'
   },
   {
