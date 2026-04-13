@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Maui Surf House</title>
+    <style>
+      :root {
+        --sand: #f4e7cf;
+        --ocean: #0f6b78;
+        --deep: #123044;
+        --coral: #ef8354;
+        --paper: #fffaf2;
+        --ink: #193042;
+        --muted: #5d7282;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        color: var(--ink);
+        background:
+          radial-gradient(circle at top left, rgba(239, 131, 84, 0.14), transparent 24%),
+          linear-gradient(180deg, #f9f4eb 0%, #eef6f7 48%, #f8fbfc 100%);
+      }
+
+      .page {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 32px 24px 56px;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 28px;
+        align-items: stretch;
+        min-height: 520px;
+        border-radius: 28px;
+        overflow: hidden;
+        background: linear-gradient(135deg, rgba(18, 48, 68, 0.96), rgba(15, 107, 120, 0.9));
+        color: white;
+        box-shadow: 0 28px 80px rgba(18, 48, 68, 0.2);
+      }
+
+      .hero-copy {
+        padding: 48px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        width: fit-content;
+        padding: 10px 14px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.14);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-size: 0.78rem;
+        margin-bottom: 22px;
+      }
+
+      h1 {
+        font-size: clamp(3rem, 6vw, 5.2rem);
+        line-height: 0.96;
+        margin: 0 0 18px;
+        max-width: 9ch;
+      }
+
+      .tagline {
+        font-size: 1.2rem;
+        line-height: 1.6;
+        max-width: 54ch;
+        color: rgba(255, 255, 255, 0.88);
+        margin: 0 0 30px;
+      }
+
+      .hero-actions {
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+      }
+
+      .button {
+        border: none;
+        border-radius: 14px;
+        padding: 15px 20px;
+        font-weight: 700;
+        font-size: 0.98rem;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .button.primary {
+        background: var(--coral);
+        color: white;
+        box-shadow: 0 16px 28px rgba(239, 131, 84, 0.34);
+      }
+
+      .button.secondary {
+        background: rgba(255, 255, 255, 0.14);
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+      }
+
+      .hero-visual {
+        position: relative;
+        background:
+          linear-gradient(180deg, rgba(8, 24, 36, 0.05), rgba(8, 24, 36, 0.45)),
+          url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80") center/cover;
+        min-height: 100%;
+      }
+
+      .hero-card {
+        position: absolute;
+        left: 24px;
+        right: 24px;
+        bottom: 24px;
+        display: grid;
+        gap: 12px;
+        background: rgba(255, 250, 242, 0.94);
+        color: var(--ink);
+        border-radius: 20px;
+        padding: 20px;
+        backdrop-filter: blur(8px);
+      }
+
+      .hero-card strong {
+        font-size: 1.1rem;
+      }
+
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+        margin: 24px 0;
+      }
+
+      .stat {
+        background: rgba(255, 255, 255, 0.75);
+        border: 1px solid rgba(18, 48, 68, 0.08);
+        border-radius: 20px;
+        padding: 18px;
+        box-shadow: 0 14px 30px rgba(18, 48, 68, 0.06);
+      }
+
+      .stat .label {
+        color: var(--muted);
+        font-size: 0.9rem;
+        margin-bottom: 10px;
+      }
+
+      .stat .value {
+        font-size: 1.15rem;
+        font-weight: 700;
+      }
+
+      .content-grid {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 24px;
+        margin-top: 28px;
+      }
+
+      .panel {
+        background: rgba(255, 250, 242, 0.92);
+        border: 1px solid rgba(18, 48, 68, 0.08);
+        border-radius: 24px;
+        padding: 28px;
+        box-shadow: 0 18px 42px rgba(18, 48, 68, 0.05);
+      }
+
+      .panel h2 {
+        margin: 0 0 12px;
+        font-size: 1.8rem;
+      }
+
+      .panel p {
+        color: var(--muted);
+        line-height: 1.7;
+        margin: 0;
+      }
+
+      .amenities {
+        display: grid;
+        gap: 14px;
+      }
+
+      .amenity {
+        display: flex;
+        gap: 14px;
+        align-items: flex-start;
+        padding: 16px;
+        border-radius: 18px;
+        background: white;
+        border: 1px solid rgba(18, 48, 68, 0.08);
+      }
+
+      .icon {
+        width: 38px;
+        height: 38px;
+        border-radius: 12px;
+        display: grid;
+        place-items: center;
+        background: rgba(15, 107, 120, 0.12);
+        color: var(--ocean);
+        font-weight: 800;
+        flex: none;
+      }
+
+      .amenity strong {
+        display: block;
+        margin-bottom: 4px;
+      }
+
+      .cta {
+        margin-top: 28px;
+        display: grid;
+        place-items: center;
+        text-align: center;
+        padding: 34px 24px;
+        border-radius: 24px;
+        color: white;
+        background: linear-gradient(135deg, #0f6b78, #123044);
+        box-shadow: 0 20px 46px rgba(18, 48, 68, 0.18);
+      }
+
+      .cta h2 {
+        margin: 0 0 10px;
+        font-size: 2rem;
+      }
+
+      .cta p {
+        margin: 0 0 22px;
+        max-width: 50ch;
+        color: rgba(255, 255, 255, 0.86);
+      }
+
+      @media (max-width: 960px) {
+        .hero,
+        .content-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .hero-copy {
+          padding: 36px 24px 28px;
+        }
+
+        .hero-visual {
+          min-height: 360px;
+        }
+
+        .stats {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <section class="hero">
+        <div class="hero-copy">
+          <div class="eyebrow">Maui Surf House</div>
+          <h1>Stay close to the waves.</h1>
+          <p class="tagline">
+            A surf-friendly Maui stay for Australian visitors who want a simple place to sleep,
+            shower, store boards, and get back out early.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#cta">Book a Stay</a>
+            <a class="button secondary" href="#about">See Amenities</a>
+          </div>
+          <div class="stats">
+            <div class="stat">
+              <div class="label">Location</div>
+              <div class="value">Kihei, Maui</div>
+            </div>
+            <div class="stat">
+              <div class="label">Built for</div>
+              <div class="value">Australian surfers</div>
+            </div>
+            <div class="stat">
+              <div class="label">Focus</div>
+              <div class="value">Easy booking</div>
+            </div>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="hero-card">
+            <strong>Featured image</strong>
+            <span>Ocean view, clean lines, and a simple layout that leads straight to booking.</span>
+          </div>
+        </div>
+      </section>
+
+      <div class="content-grid" id="about">
+        <section class="panel">
+          <h2>About the stay</h2>
+          <p>
+            Maui Surf House is set up for people who come to Maui to surf and do not want a
+            complicated booking experience. The property keeps the focus on comfort, beach access,
+            and the practical things that matter after a long day in the water.
+          </p>
+        </section>
+
+        <section class="panel amenities">
+          <h2>Amenities</h2>
+          <div class="amenity">
+            <div class="icon">1</div>
+            <div>
+              <strong>Board storage and rental support</strong>
+              <span>Keep gear safe and ready for early sessions.</span>
+            </div>
+          </div>
+          <div class="amenity">
+            <div class="icon">2</div>
+            <div>
+              <strong>Outdoor shower</strong>
+              <span>Rinse off sand and salt before heading in.</span>
+            </div>
+          </div>
+          <div class="amenity">
+            <div class="icon">3</div>
+            <div>
+              <strong>Jeep or Tacoma rental options</strong>
+              <span>Haul boards and move around the island with ease.</span>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <section class="cta" id="cta">
+        <h2>Ready to book your Maui surf trip?</h2>
+        <p>
+          The goal is simple: show the property fast, make the stay easy to understand, and get
+          the visitor to the next step without friction.
+        </p>
+        <a class="button primary" href="/booking">Check Availability</a>
+      </section>
+    </div>
+  </body>
+</html>
