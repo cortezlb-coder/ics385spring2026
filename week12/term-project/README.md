@@ -8,25 +8,67 @@ Maui Surf House is a simple full-stack vacation rental project for Australian su
 - Visitor segment: Australians coming to Maui to surf
 - Main goal: make it easy to show the property, the surf-friendly amenities, and the next step to book
 
-## What The PRD Calls For
-- Marketing page with these sections:
-	- Hero
-	- About
-	- Amenities
-	- CTA
-- Supporting pages:
-	- Splash page
-	- Booking page
-	- Customer login and dashboard
-	- Admin login and property management dashboard
-- Data flow:
-	- React front end talks to an Express backend
-	- Express reads and writes MongoDB data
-- Content the site should highlight:
-	- Surfboard storage or board rental
-	- Outdoor shower
-	- Optional Jeep or Tacoma rental
-	- Local food, surf cam, weather, and night events
+## Week 12 PRD Requirements
+
+### Data Model
+The project uses one MongoDB property document as the source of truth for the marketing page and the backend API.
+
+- Property schema
+	- `name: String`
+	- `island: String`
+	- `type: String`
+	- `description: String`
+	- `amenities: String[]`
+	- `targetSegment: String`
+	- `imageURL: String`
+	- `reviews: Review[]`
+- Review schema
+	- `guestName: String`
+	- `rating: Number` between 1 and 5
+	- `comment: String`
+	- `date: Date`
+
+### Data Flow
+- The React marketing page requests property data from the Express backend.
+- Express reads and writes MongoDB using the `Property` model.
+- `GET /properties` returns the property list for the browser or JSON for API clients.
+- `GET /properties/:id` returns one property document.
+- `POST /properties/:id/reviews` saves a new review and returns the saved review data.
+- `seed.js` loads one Maui Surf House listing so the site always starts with a known record.
+
+### Component Data Requirements
+Each component should receive explicit data fields instead of generic copy.
+
+- Hero
+	- `propertyName: String`
+	- `island: String`
+	- `featuredImageUrl: String`
+	- `tagline: String`
+	- `primaryCtaLabel: String`
+	- `primaryCtaHref: String`
+- About
+	- `description: String`
+	- `locationLabel: String`
+	- `targetSegment: String`
+- Amenities
+	- `amenities: String[]`
+	- `highlightCards: Array<{ title: String, description: String, mark: String }>`
+- CTA
+	- `headline: String`
+	- `body: String`
+	- `buttonLabel: String`
+	- `buttonHref: String`
+- Supporting pages
+	- SplashPage: `headline: String`, `subheadline: String`, `primaryHref: String`
+	- BookingPage: `checkIn: Date`, `checkOut: Date`, `guestCount: Number`, `contactName: String`, `contactEmail: String`, `phone: String`
+	- CustomerDashboard: `customerName: String`, `bookings: Array<{ id: String, dates: String, status: String }>`
+	- AdminDashboard: `property: Property`, `saveStatus: String`, `editFields: Object`
+
+### Content Requirements
+- The marketing page must highlight surfboard storage or board rental.
+- The marketing page must highlight an outdoor shower.
+- The marketing page must highlight optional Jeep or Tacoma rental.
+- The site may also surface local food, surf cam, weather, and night events as supporting content.
 
 ## Current Repo Status
 This repo currently contains the Express, Mongoose, and EJS version of the project. It already has:
@@ -98,8 +140,14 @@ Examples:
 - `POST /properties/:id/reviews`
 	- Adds a review with `guestName`, `rating`, and `comment`.
 
-## Week 12 Direction
-The PRD for Week 12 pushes this project toward a React marketing site with a splash page, booking page, customer dashboard, and admin dashboard. The marketing page should lead with the property name, a featured image, surf-friendly amenities, and a clear booking call to action.
+## Testable Acceptance Criteria
+- `GET /properties` returns status `200` and includes one seeded property named `Maui Surf House` with `island` equal to `Maui`.
+- `GET /properties?format=json` returns JSON that includes `name`, `island`, `type`, `description`, `amenities`, `targetSegment`, `imageURL`, and `reviews`.
+- The Hero section renders the property name, the Maui location, one featured image placeholder or image URL, and a primary booking button.
+- The Amenities section displays at least the three surf-focused amenities: surfboard storage or board rental, outdoor shower, and Jeep or Tacoma rental.
+- A visitor can reach a booking decision within 10 minutes on mobile without needing to read extra pages.
+- When the admin updates property data in MongoDB, the updated value appears on the next page load and in the API response.
+- `POST /properties/:id/reviews` rejects invalid ratings outside the 1 to 5 range and accepts valid submissions with status `201`.
 
 ## Reflection
 I built the Maui Surf House project around a simple surf rental idea for Australians visiting Maui. I started with an AI-made template, then kept building on it with my own changes so each week added more to the project instead of starting over. I kept the data model small, used Express and MongoDB for the backend, and used a plain EJS page so the property list is easy to review and run. For AI help, I used Copilot to start the template and help clean up the README and project notes.

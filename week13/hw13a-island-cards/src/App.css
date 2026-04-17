@@ -1,0 +1,200 @@
+:root {
+  color-scheme: light;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color: #13212d;
+  background:
+    radial-gradient(circle at top left, rgba(21, 101, 192, 0.18), transparent 34%),
+    linear-gradient(180deg, #f7fbff 0%, #eef5fb 100%);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+button,
+select {
+  font: inherit;
+}
+
+.app-shell {
+  width: min(1120px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 40px 0 56px;
+}
+
+.hero {
+  padding: 36px 32px;
+  border-radius: 28px;
+  background: linear-gradient(135deg, #12324f 0%, #1b5f8a 55%, #4f9ec9 100%);
+  color: #f8fcff;
+  box-shadow: 0 24px 50px rgba(18, 50, 79, 0.18);
+}
+
+.hero h1,
+.list-header h2,
+.summary-value,
+.island-card h2 {
+  margin: 0;
+}
+
+.hero h1 {
+  font-size: clamp(2.25rem, 4vw, 4rem);
+  line-height: 1.05;
+  margin-top: 4px;
+}
+
+.lede {
+  max-width: 60ch;
+  margin: 16px 0 0;
+  font-size: 1.05rem;
+  color: rgba(248, 252, 255, 0.9);
+}
+
+.eyebrow {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.77rem;
+  font-weight: 700;
+}
+
+.list-section {
+  margin-top: 28px;
+}
+
+.list-header {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.filter-label {
+  display: grid;
+  gap: 8px;
+  min-width: 220px;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.filter-label span {
+  color: #355169;
+}
+
+select {
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(19, 33, 45, 0.12);
+  background: #ffffff;
+  color: #13212d;
+  box-shadow: 0 8px 20px rgba(19, 33, 45, 0.05);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+}
+
+.island-card {
+  overflow: hidden;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(19, 33, 45, 0.08);
+  box-shadow: 0 18px 40px rgba(19, 33, 45, 0.08);
+}
+
+.island-image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+}
+
+.island-card-body {
+  padding: 18px;
+}
+
+.card-header {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.segment-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #d8eefc;
+  color: #135b86;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.nickname,
+.avg-stay,
+.summary-note {
+  margin: 10px 0 0;
+  color: #4b6478;
+}
+
+.summary-card {
+  margin-top: 20px;
+  padding: 18px 20px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #12324f 0%, #1b5f8a 100%);
+  color: #f8fcff;
+}
+
+.summary-label {
+  margin: 0;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  opacity: 0.78;
+}
+
+.summary-value {
+  margin-top: 6px;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.summary-note {
+  color: rgba(248, 252, 255, 0.88);
+}
+
+@media (max-width: 720px) {
+  .app-shell {
+    width: min(100% - 20px, 1120px);
+    padding-top: 20px;
+  }
+
+  .hero {
+    padding: 28px 20px;
+  }
+
+  .list-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filter-label {
+    min-width: 0;
+  }
+}
