@@ -1,0 +1,128 @@
+
+
+
+
+
+
+
+
+Product Requirements Document 
+Project Name: Maui Surf House
+Island: Maui
+Visitor Segment: Australians coming to Maui to surf
+Lexter Cortez
+Last updated: 4/10/25
+
+
+
+
+
+
+
+
+
+
+Project Overview
+Maui Surf House is gonna be a vacation bnb located in Kihei in Maui. The goal of the project is to have the web application be designed for surfers coming from Australia looking to book a stay with amenities supporting their visit. The amenities will include surfboard storage/rent a board service, outdoor showers for post beach clean up and optional rental vehicles like Jeeps or Tacoma equipped to haul their gear. 
+
+The application will be very simple in booking and include multiple APIs to cater to the client. The page will include local food recommendations, surf cam, weather reports and night events available near the property. The application will have 5 pages consisting of the marketing page showcasing the property and amenities, booking page, property management via login, customer login and interface and splash page. The goal is to make the interface clear and quick for both the customer and admin. The focus is on usability, simplicity, and real-world application of a full-stack system using React, Express, and MongoDB.
+
+
+User Personas
+Visitor Persona
+Name: Jake DA Surfer
+Age: 29
+Goal: Find a surf-friendly place to stay near the beach
+Needs: Easy-to-read info, amenities, location details
+Behavior: Uses phone, scrolls quickly, wants fast decisions
+
+Admin Persona
+Name: Lexter 
+Age: 29
+Goal: Manage and update property listing
+Needs: Simple way to edit data (amenities, description, etc.)
+Behavior: Uses desktop, updates occasionally
+
+Data Flow
+Data is stored in MongoDB and managed through an Express backend. The React front-end sends requests to the backend to retrieve or update property information. The Express server processes the request and interacts with the database. The returned data is then displayed in the React components.
+
+Mongoose Schema Details
+Property schema fields:
+- name: String
+- island: String
+- type: String
+- description: String
+- amenities: String[]
+- targetSegment: String
+- imageURL: String
+- reviews: Review[]
+
+Review schema fields:
+- guestName: String
+- rating: Number, required, min 1, max 5
+- comment: String
+- date: Date
+
+How the schema maps to the UI:
+- name, island, imageURL map to the Hero component.
+- description and targetSegment map to the About component.
+- amenities maps to the Amenities component and the surf support details on the marketing page.
+- reviews map to the property details and review counts shown on the backend-rendered property page.
+- rating validation supports the review form and API test cases.
+Marketing Page Requirements 
+Hero Component
+The Hero component displays these fields and data types:
+- propertyName: String
+- island: String
+- featuredImageUrl: String
+- tagline: String
+- bookingButtonLabel: String
+- bookingButtonHref: String
+Its purpose is to make a strong first impression and immediately show visitors what the property offers.
+About Component
+The About component displays these fields and data types:
+- description: String
+- locationLabel: String
+- targetSegment: String
+Its purpose is to explain the value of the stay and help visitors quickly understand the experience.
+Amenities Component
+The Amenities component displays these fields and data types:
+- amenities: String[]
+- highlightCards: Array of objects with:
+	- title: String
+	- description: String
+	- mark: String
+The component must include surfboard storage or board rental, outdoor shower access, and optional Jeep or Tacoma rental. Its purpose is to show the benefits of the property in a simple and organized way.
+CTA Component
+The CTA (Call to Action) component displays these fields and data types:
+- headline: String
+- body: String
+- buttonLabel: String
+- buttonHref: String
+Its purpose is to guide the visitor toward taking the next step.
+Component Hierarchy Diagram (AI assisted)
+App - Main application container
+├── SplashPage - Intro/landing screen
+├── MarketingPage - Main promotional property page
+│   ├── Hero - Featured image, title, tagline, booking button
+│   ├── About - Property description and location details
+│   ├── Amenities - Property features and surf-related amenities
+│   └── CTA - Call-to-action for booking or contact
+├── BookingPage - Reservation and availability interface
+├── CustomerDashboard - Customer login and booking interface
+└── AdminDashboard - Property management and updates
+
+
+
+
+Acceptance Criteria
+
+- GET /properties returns status 200 and includes one seeded property named Maui Surf House with island equal to Maui.
+- GET /properties?format=json returns JSON with name, island, type, description, amenities, targetSegment, imageURL, and reviews fields.
+- The Hero section renders the property name, Maui location label, featured image, tagline, and booking button on first load.
+- The About section renders a description string, a location label, and a target segment string without missing values.
+- The Amenities section shows at least three surf-related items: surfboard storage or board rental, outdoor shower, and Jeep or Tacoma rental.
+- POST /properties/:id/reviews accepts valid guestName, rating, and comment values and returns status 201.
+- POST /properties/:id/reviews rejects ratings below 1 or above 5 and returns status 400.
+- When MongoDB property data changes, the updated values appear in the API response on the next request.
+- A user can identify the property, see the main amenities, and reach the booking CTA in one page without needing extra navigation.
