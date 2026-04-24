@@ -100,10 +100,4 @@ mongosh "mongodb://127.0.0.1:27017/hw14_auth_preview"
 db.users.find().pretty()
 ```
 
-### Is `.env` ignored by git?
 
-Yes. This project includes `.gitignore` with:
-
-- `.env`
-- `node_modules/`
-- `npm-debug.log*`
