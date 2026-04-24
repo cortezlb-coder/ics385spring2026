@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <style>
+      body { font-family: Arial, sans-serif; max-width: 640px; margin: 2rem auto; padding: 0 1rem; }
+      .card { border: 1px solid #d0d0d0; border-radius: 8px; padding: 1rem; margin: 1rem 0; }
+      button { padding: 0.7rem; cursor: pointer; }
+    </style>
+  </head>
+  <body>
+    <h1>Protected Dashboard</h1>
+    <!-- req.user data is passed from the server after successful login. -->
+    <div class="card">
+      <p><strong>Username:</strong> <%= user.username %></p>
+      <p><strong>Email:</strong> <%= user.email %></p>
+      <p>This page is only visible when logged in.</p>
+    </div>
+
+    <!-- Logout is a POST request to safely end the session. -->
+    <form method="POST" action="/logout">
+      <button type="submit">Logout</button>
+    </form>
+  </body>
+</html>

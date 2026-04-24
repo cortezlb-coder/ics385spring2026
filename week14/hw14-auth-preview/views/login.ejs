@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <style>
+      body { font-family: Arial, sans-serif; max-width: 640px; margin: 2rem auto; padding: 0 1rem; }
+      form { display: grid; gap: 0.75rem; }
+      input { padding: 0.6rem; }
+      button { padding: 0.7rem; cursor: pointer; }
+      .message { margin: 1rem 0; color: #b00020; }
+      a { color: #0a58ca; }
+    </style>
+  </head>
+  <body>
+    <h1>Login</h1>
+    <!-- Show login errors (for example, invalid credentials). -->
+    <% if (message) { %>
+      <p class="message"><%= message %></p>
+    <% } %>
+    <!-- Login form posts identifier + password to /login. -->
+    <form method="POST" action="/login">
+      <label for="identifier">Username or Email</label>
+      <input id="identifier" name="identifier" required />
+
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password" required />
+
+      <button type="submit">Login</button>
+    </form>
+
+    <p>No account yet? <a href="/register">Register here</a>.</p>
+  </body>
+</html>

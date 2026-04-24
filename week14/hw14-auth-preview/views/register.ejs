@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register</title>
+    <style>
+      body { font-family: Arial, sans-serif; max-width: 640px; margin: 2rem auto; padding: 0 1rem; }
+      form { display: grid; gap: 0.75rem; }
+      input { padding: 0.6rem; }
+      button { padding: 0.7rem; cursor: pointer; }
+      .message { margin: 1rem 0; color: #b00020; }
+      a { color: #0a58ca; }
+    </style>
+  </head>
+  <body>
+    <h1>Create Account</h1>
+    <!-- Show server-side validation or error messages here. -->
+    <% if (message) { %>
+      <p class="message"><%= message %></p>
+    <% } %>
+    <!-- Registration form posts to /register. -->
+    <form method="POST" action="/register">
+      <label for="username">Username</label>
+      <input id="username" name="username" minlength="3" required />
+
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" required />
+
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password" minlength="6" required />
+
+      <button type="submit">Register</button>
+    </form>
+
+    <p>Already have an account? <a href="/login">Login here</a>.</p>
+  </body>
+</html>
