@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 640px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+      }
+      .profile {
+        border: 1px solid #d0d0d0;
+        border-radius: 8px;
+        padding: 1rem;
+        margin-top: 1rem;
+      }
+      img {
+        border-radius: 50%;
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+      }
+      a, button {
+        margin-top: 1rem;
+        display: inline-block;
+      }
+      button {
+        padding: 0.7rem 1rem;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Your Profile</h1>
+    <div class="profile">
+      <% if (user.profilePhoto) { %>
+        <img src="<%= user.profilePhoto %>" alt="Profile photo" />
+      <% } %>
+      <p><strong>Name:</strong> <%= user.displayName %></p>
+      <p><strong>Email:</strong> <%= user.email %></p>
+      <p>Authenticated via Google OAuth.</p>
+    </div>
+
+    <a href="/">Back to home</a>
+    <form action="/logout" method="GET">
+      <button type="submit">Logout</button>
+    </form>
+  </body>
+</html>
