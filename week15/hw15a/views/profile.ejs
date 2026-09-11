@@ -41,11 +41,12 @@
       <% } %>
       <p><strong>Name:</strong> <%= user.displayName %></p>
       <p><strong>Email:</strong> <%= user.email %></p>
+      <p><strong>Mongoose ID:</strong> <%= user._id %></p>
       <p>Authenticated via Google OAuth.</p>
     </div>
 
     <a href="/">Back to home</a>
-    <form action="/logout" method="GET">
+    <form action="/logout" method="POST">
       <button type="submit">Logout</button>
     </form>
   </body>

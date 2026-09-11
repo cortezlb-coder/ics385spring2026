@@ -30,10 +30,12 @@ passport.use(
             firstName: profile.name?.givenName || "",
             lastName: profile.name?.familyName || "",
             email,
+            provider: "google",
             profilePhoto: profile.photos?.[0]?.value || "",
           });
         } else {
           user.googleId = profile.id;
+          user.provider = "google";
           user.displayName = profile.displayName;
           user.firstName = profile.name?.givenName || user.firstName || "";
           user.lastName = profile.name?.familyName || user.lastName || "";

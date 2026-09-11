@@ -26,6 +26,10 @@ const userSchema = new mongoose.Schema(
       lowercase: true,
       trim: true,
     },
+    provider: {
+      type: String,
+      default: "google",
+    },
     profilePhoto: {
       type: String,
       default: "",

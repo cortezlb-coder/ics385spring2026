@@ -1,14 +1,14 @@
 # HW15A Google OAuth (Thursday)
 
-Express app using Passport Google OAuth strategy to log in with a Google account and protect a profile page.
+Standalone Express authentication app using Google OAuth, Passport, and MongoDB.
 
 ## What This Demonstrates
 
-- Google login via Passport + `passport-google-oauth20`
+- Google login with `passport-google-oauth20`
 - OAuth callback handling with Google
-- Session-based authentication with `express-session` + `passport`
+- Session-based authentication with `express-session` and `connect-mongo`
 - MongoDB storage for authenticated users
-- Protected route (`/profile`) and logout flow
+- Protected route (`/profile`) and POST logout flow
 
 ## Setup
 
@@ -30,14 +30,14 @@ http://localhost:3000/auth/google/callback
 
 ```env
 PORT=3000
-MONGO_URI=mongodb://127.0.0.1:27017/hw15a_google_oauth
+MONGO_URI=mongodb://127.0.0.1:27017/15a
 SESSION_SECRET=change_this_secret_value
 GOOGLE_CLIENT_ID=your_google_client_id
 GOOGLE_CLIENT_SECRET=your_google_client_secret
 GOOGLE_CALLBACK_URL=http://localhost:3000/auth/google/callback
 ```
 
-4. Start MongoDB locally (or point `MONGO_URI` to your Mongo instance).
+4. Start MongoDB locally or point `MONGO_URI` to your Mongo instance.
 
 5. Run the app:
 
@@ -52,19 +52,37 @@ npm run dev
 
 ## Project Structure
 
-- `app.js`: main Express app, session setup, route mounting
-- `config/passport.js`: Google OAuth strategy configuration
+- `app.js`: main Express app, MongoDB connection, and session setup
+- `config/passport.js`: Google strategy and user serialization
 - `models/User.js`: Mongoose user schema
 - `routes/auth.js`: Google login, callback, and logout routes
 - `middleware/ensureAuth.js`: route guard for protected pages
-- `views/*.ejs`: home/profile templates
+- `views/*.ejs`: home and profile templates
 
 ## Notes for Class
 
 - User information is stored in MongoDB after successful Google login.
+- Each user document includes `googleId`, `email`, `displayName`, and `provider: "google"`.
 - The Google callback URL must match exactly in Google Cloud Console.
 - `SESSION_SECRET` signs the session cookie and should stay in `.env`.
 - This project uses Google OAuth as the authentication provider instead of a local username/password login.
+
+## Submission Checklist
+
+- [x] Add a screenshot of the Google consent screen showing `ICS385 HW15A`.
+- [x] Add a screenshot of `/profile` showing the email and Mongoose `_id`.
+- [x] Add a screenshot of the MongoDB `15a.users` document.
+- [x] Confirm `.env` is ignored and `.env.example` is committed.
+- [x] Add a 100–150 word reflection.
+- [x] Complete the AI Tools Used section.
+
+## Reflection
+
+For this assignment, I was able to see how google handles logins rather than the site handling the passwords themselves. I didn't realize all that goes in the background just to sign in with google but I can now recognize this when signing into apps now. Also seeing how see sessions are saved in the mongoDB and whos logged in seems like it can be a powerful tool in regulating traffic. The struggles I had was understanding how to navigate the google cloud oauth and creating a project from it. But after retreving the credentials it worked smoothly. I am excited to implement this into my term project and seeing admin vs user logins working. 
+
+## AI Tools Used
+
+GitHub Copilot was used to help inspect the assignment requirements, configure the Google OAuth flow, update the Express and Passport integration, and review the README. All generated changes were reviewed and tested locally.
 
 ## FAQ (From Class Questions)
 
@@ -93,9 +111,9 @@ Validation happens in a few steps:
 ### Where are users stored?
 
 - Users are stored in MongoDB.
-- Database name comes from `MONGO_URI`, currently `hw15a_google_oauth`.
+- Database name comes from `MONGO_URI`, currently `15a`.
 - Collection is `users` (from the `User` model).
-- Google profile data is stored such as `googleId`, `email`, `displayName`, and `profilePhoto`.
+- Google profile data is stored such as `googleId`, `email`, `displayName`, `provider`, and `profilePhoto`.
 
 ### Where can I see all users?
 
@@ -103,12 +121,12 @@ Use either method:
 
 1. MongoDB Compass
    - Connect to `mongodb://127.0.0.1:27017`
-   - Open database `hw15a_google_oauth`
+   - Open database `15a`
    - Open collection `users`
 
 2. mongosh
 
 ```bash
-mongosh "mongodb://127.0.0.1:27017/hw15a_google_oauth"
+mongosh "mongodb://127.0.0.1:27017/15a"
 db.users.find().pretty()
 ```
