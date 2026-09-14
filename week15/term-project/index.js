@@ -4,6 +4,10 @@ const mongoose = require("mongoose");
 const path = require("path");
 const bcrypt = require("bcrypt");
 const session = require("express-session");
+const passport = require("passport");
+const authRoutes = require("./routes/auth");
+
+require("./config/passport");
 const Property = require("./models/Property");
 const User = require("./models/User");
 
@@ -29,6 +33,10 @@ app.use(
     }
   })
 );
+
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(authRoutes);
 
 app.use((req, res, next) => {
   const requestOrigin = req.headers.origin;

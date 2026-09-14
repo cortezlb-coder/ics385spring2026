@@ -1,7 +1,17 @@
 process.env.NODE_ENV = "test";
 process.env.SESSION_SECRET = "test-secret";
+process.env.GOOGLE_CLIENT_ID = "test-client-id";
+process.env.GOOGLE_CLIENT_SECRET = "test-client-secret";
+process.env.GOOGLE_CALLBACK_URL = "http://localhost:3000/auth/google/callback";
 
 const request = require("supertest");
+const bcrypt = require("bcrypt");
+
+jest.mock("../models/User");
+jest.mock("../models/Property");
+
+const User = require("../models/User");
+const Property = require("../models/Property");
 const app = require("../index");
 
 test("AC-5: unauthenticated user cannot access admin dashboard", async () => {
@@ -10,13 +20,6 @@ test("AC-5: unauthenticated user cannot access admin dashboard", async () => {
   expect(res.statusCode).toBe(401);
   expect(res.body.error).toBe("Authentication required.");
 });
-
-const bcrypt = require("bcrypt");
-const User = require("../models/User");
-const Property = require("../models/Property");
-
-jest.mock("../models/User");
-jest.mock("../models/Property");
 
 test("AC-3: valid local login creates an authenticated session", async () => {
   const agent = request.agent(app);
@@ -106,3 +109,9 @@ test("AC-7: logout ends the session and blocks protected routes", async () => {
   expect(protectedRes.statusCode).toBe(401);
 });
 
+test("AC-4: Google OAuth route redirects to Google authentication", async () => {
+  const res = await request(app).get("/auth/google");
+
+  expect(res.statusCode).toBe(302);
+  expect(res.headers.location).toMatch(/accounts\.google\.com/);
+});
