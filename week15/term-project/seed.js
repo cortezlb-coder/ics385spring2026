@@ -1,8 +1,11 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
+const dns = require("dns");
 const bcrypt = require("bcrypt");
 const Property = require("./models/Property");
 const User = require("./models/User");
+
+dns.setServers(["1.1.1.1", "8.8.8.8"]);
 
 // connect to MongoDB
 mongoose.connect(process.env.MONGO_URI)

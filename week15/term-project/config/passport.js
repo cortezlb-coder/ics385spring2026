@@ -2,8 +2,9 @@ const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const User = require("../models/User");
 
-passport.use(
-  new GoogleStrategy(
+if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET && process.env.GOOGLE_CALLBACK_URL) {
+  passport.use(
+    new GoogleStrategy(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
@@ -31,6 +32,7 @@ passport.use(
             lastName: profile.name?.familyName || "",
             email,
             provider: "google",
+            role: "user",
             profilePhoto: profile.photos?.[0]?.value || "",
           });
         } else {
@@ -49,11 +51,12 @@ passport.use(
         return done(error, false);
       }
     }
-  )
-);
+    )
+  );
+}
 
 passport.serializeUser((user, done) => {
-  done(null, user.id);
+  done(null, String(user.id || user._id));
 });
 
 passport.deserializeUser(async (id, done) => {

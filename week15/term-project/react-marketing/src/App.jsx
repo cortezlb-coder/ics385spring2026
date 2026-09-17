@@ -157,11 +157,14 @@ export default function App() {
     return (
       <main className="page-shell">
         <section className="auth-card" aria-labelledby="login-title">
-          <p className="eyebrow">Week 14d Login</p>
+          <p className="eyebrow">Secure Login</p>
           <h2 id="login-title">Sign in to Hawaii Hospitality Dashboard</h2>
           <p className="auth-copy">
             Use seeded accounts: admin / Admin123! or visitor / User123!
           </p>
+          <a className="button primary auth-submit" href={`${API_BASE}/auth/google`}>
+            Continue with Google
+          </a>
           <form className="auth-form" onSubmit={handleLogin}>
             <label htmlFor="username">Username</label>
             <input

@@ -1,6 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
+const dns = require("dns");
 const path = require("path");
 const bcrypt = require("bcrypt");
 const session = require("express-session");
@@ -14,6 +15,8 @@ const User = require("./models/User");
 const app = express();
 const PORT = process.env.PORT || 3000;
 const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN || "http://localhost:5173";
+
+dns.setServers(["1.1.1.1", "8.8.8.8"]);
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -57,7 +60,7 @@ app.use((req, res, next) => {
 });
 
 function requireAuth(req, res, next) {
-  if (!req.session.user) {
+  if (!req.isAuthenticated()) {
     return res.status(401).json({ error: "Authentication required." });
   }
 
@@ -65,11 +68,11 @@ function requireAuth(req, res, next) {
 }
 
 function requireAdmin(req, res, next) {
-  if (!req.session.user) {
+  if (!req.isAuthenticated()) {
     return res.status(401).json({ error: "Authentication required." });
   }
 
-  if (req.session.user.role !== "admin") {
+  if (req.user.role !== "admin") {
     return res.status(403).json({ error: "Admin access required." });
   }
 
@@ -115,13 +118,19 @@ function buildPropertyFilter(queryParams) {
 }
 
 app.get("/auth/session", (req, res) => {
-  if (!req.session.user) {
+  if (!req.isAuthenticated()) {
     return res.json({ authenticated: false });
   }
 
   return res.json({
     authenticated: true,
-    user: req.session.user
+    user: {
+      id: req.user.id,
+      username: req.user.username,
+      displayName: req.user.displayName,
+      email: req.user.email,
+      role: req.user.role
+    }
   });
 });
 
@@ -145,15 +154,21 @@ app.post("/auth/login", async (req, res) => {
       return res.status(401).json({ error: "Invalid username or password." });
     }
 
-    req.session.user = {
+    const sessionUser = {
       id: String(user._id),
       username: user.username,
       role: user.role
     };
 
-    return res.json({
-      message: "Login successful.",
-      user: req.session.user
+    return req.login(user, (loginError) => {
+      if (loginError) {
+        return res.status(500).json({ error: "Login failed.", details: loginError.message });
+      }
+
+      return res.json({
+        message: "Login successful.",
+        user: sessionUser
+      });
     });
   } catch (err) {
     return res.status(500).json({ error: "Login failed.", details: err.message });

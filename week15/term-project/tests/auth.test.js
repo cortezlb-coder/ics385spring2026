@@ -32,6 +32,11 @@ test("AC-3: valid local login creates an authenticated session", async () => {
     passwordHash,
     role: "admin"
   });
+  User.findById.mockResolvedValue({
+    _id: "123",
+    username: "admin",
+    role: "admin"
+  });
 
   const res = await agent
     .post("/auth/login")
@@ -54,6 +59,11 @@ test("AC-6: authenticated admin can update property information", async () => {
     _id: "123",
     username: "admin",
     passwordHash,
+    role: "admin"
+  });
+  User.findById.mockResolvedValue({
+    _id: "123",
+    username: "admin",
     role: "admin"
   });
 
