@@ -118,20 +118,20 @@ a {
   font-weight: 700;
 }
 
-.logout-button {
-  background: linear-gradient(135deg, #1d4ed8, #2563eb);
-  color: white;
-  border: 1px solid rgba(37, 99, 235, 0.28);
-  box-shadow: 0 12px 24px rgba(37, 99, 235, 0.18);
+.button.secondary.logout-button {
+  background: #b42318;
+  color: #ffffff;
+  border: 1px solid #8f1d14;
+  box-shadow: 0 12px 24px rgba(180, 35, 24, 0.22);
   cursor: pointer;
 }
 
 .logout-button:hover {
-  filter: brightness(1.08);
+  background: #8f1d14;
 }
 
 .logout-button:focus-visible {
-  outline: 2px solid rgba(37, 99, 235, 0.5);
+  outline: 2px solid #b42318;
   outline-offset: 2px;
 }
 
@@ -413,7 +413,7 @@ h1 {
   position: relative;
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(8, 24, 36, 0.4)),
-    url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80") center/cover;
+    var(--hero-image) center/cover;
 }
 
 .visual-panel {

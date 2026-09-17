@@ -21,6 +21,37 @@ test("AC-5: unauthenticated user cannot access admin dashboard", async () => {
   expect(res.body.error).toBe("Authentication required.");
 });
 
+test("AC-5: authenticated visitor cannot access admin dashboard", async () => {
+  const agent = request.agent(app);
+  const passwordHash = await bcrypt.hash("User123!", 10);
+
+  User.findOne.mockResolvedValue({
+    _id: "456",
+    username: "visitor",
+    passwordHash,
+    role: "user"
+  });
+  User.findById.mockResolvedValue({
+    _id: "456",
+    username: "visitor",
+    role: "user"
+  });
+
+  const loginRes = await agent
+    .post("/auth/login")
+    .send({
+      username: "visitor",
+      password: "User123!"
+    });
+
+  expect(loginRes.statusCode).toBe(200);
+
+  const dashboardRes = await agent.get("/admin/dashboard");
+
+  expect(dashboardRes.statusCode).toBe(403);
+  expect(dashboardRes.body.error).toBe("Admin access required.");
+});
+
 test("AC-3: valid local login creates an authenticated session", async () => {
   const agent = request.agent(app);
 

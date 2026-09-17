@@ -166,6 +166,19 @@ Examples:
 - When the admin updates property data in MongoDB, the updated value appears on the next page load and in the API response.
 - `POST /properties/:id/reviews` rejects invalid ratings outside the 1 to 5 range and accepts valid submissions with status `201`.
 
+## PRD v3 Acceptance Results
+
+| Criterion | Result | Evidence |
+| --- | --- | --- |
+| AC-1 Marketing page | Pass | Public page shows the Maui property, image, description, and surf amenities. |
+| AC-2 Visitor dashboard | Pass | Public visitors can see visitor arrivals, hotel occupancy, and weather charts. |
+| AC-3 Local login | Pass | Admin login creates a session; automated authentication tests pass. |
+| AC-4 Google login | Pass | Google OAuth redirects, authenticates, and persists Google users. |
+| AC-5 Protected admin dashboard | Pass | Unauthenticated and non-admin requests cannot access admin routes. |
+| AC-6 Property update | Pass | Authenticated admin property update is covered by automated tests. |
+| AC-7 Logout | Pass | Logout destroys the session and blocks protected routes afterward. |
+| AC-8 Secret hygiene | Pass | `.env` is ignored and `.env.example` contains placeholders and local URLs only. |
+
 ## Reflection
 Week 13 built a dashboard with three charts showing real Hawaii tourism data from DBEDT and live weather from OpenWeatherMap. The Dashboard component is modular and self-contained, so it can be wrapped with Passport.js authentication in Week 14 without any refactoring. It handles API failures gracefully by showing fallback data instead of breaking. I used Chart.js with react-chartjs-2 to render the visualizations, pulled annual aggregates from three CSV files you provided (Australian visitor arrivals, hotel occupancy, repeater rates), and wired up environment variables to keep API keys secure. Next, I'm planning to add admin authentication, a local foods API to show nearby restaurants, and a live surf cam feed to make the dashboard more useful for surfers planning their visit.
 
@@ -186,11 +199,11 @@ This checkpoint adds a full username/password login flow with role-based access 
 	- `PUT /admin/properties/:id` for admin property edits.
 
 ### React Login Screen Behavior
-- A new login screen is shown before the dashboard content.
-- Successful login stores session cookie and unlocks content by role.
-- `admin` role sees full dashboard.
-- `user` role can view marketing content but sees an access notice for admin-only dashboard data.
-- A logout button clears the session and returns to login screen.
+- Visitors can view the marketing page and dashboard charts without logging in.
+- The top-right `Log in` link opens the login form.
+- Successful login stores a session cookie and shows the signed-in user.
+- Admin-only backend routes remain protected by role.
+- A logout button clears the session and returns the page to visitor mode.
 
 ### Seeded Login Credentials
 Run `npm run seed` to insert default accounts:

@@ -24,7 +24,7 @@ function Header({ property }) {
         <h1>Stay close to the waves.</h1>
       </div>
       <nav className="topnav" aria-label="Page sections">
-        <a href="#">Login</a>
+        <a href="#login">Log in</a>
         <a href="#about">About</a>
         <a href="#amenities">Amenities</a>
         <a href="#dashboard">Dashboard</a>
@@ -63,7 +63,12 @@ function Hero({ property, loadState }) {
         </div>
       </div>
 
-      <div className="hero-visual" aria-hidden="true">
+      <div
+        className="hero-visual"
+        style={{ "--hero-image": `url("${property.imageURL}")` }}
+        aria-label={`${property.name} featured image`}
+        role="img"
+      >
         <div className="visual-panel">
           <div className="visual-badge">Featured image</div>
           <p>Ocean view, warm light, and a direct path to booking.</p>

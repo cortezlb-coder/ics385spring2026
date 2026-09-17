@@ -18,6 +18,10 @@ if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET && process.
           return done(new Error("Google account email is required."), false);
         }
 
+        if (profile._json?.email_verified !== true) {
+          return done(new Error("A verified Google account email is required."), false);
+        }
+
         let user = await User.findOne({ googleId: profile.id });
 
         if (!user) {

@@ -5,6 +5,7 @@ const dns = require("dns");
 const path = require("path");
 const bcrypt = require("bcrypt");
 const session = require("express-session");
+const MongoStore = require("connect-mongo").default;
 const passport = require("passport");
 const authRoutes = require("./routes/auth");
 
@@ -16,6 +17,14 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN || "http://localhost:5173";
 
+if (process.env.NODE_ENV === "production" && !process.env.SESSION_SECRET) {
+  throw new Error("SESSION_SECRET is required in production.");
+}
+
+if (process.env.NODE_ENV === "production") {
+  app.set("trust proxy", 1);
+}
+
 dns.setServers(["1.1.1.1", "8.8.8.8"]);
 
 app.set("view engine", "ejs");
@@ -26,12 +35,21 @@ app.use(express.urlencoded({ extended: true }));
 app.use(
   session({
     secret: process.env.SESSION_SECRET || "week14d-dev-secret",
+    ...(process.env.NODE_ENV !== "test" && process.env.MONGO_URI
+      ? {
+          store: MongoStore.create({
+            mongoUrl: process.env.MONGO_URI,
+            collectionName: "sessions",
+            ttl: 60 * 60 * 4
+          })
+        }
+      : {}),
     resave: false,
     saveUninitialized: false,
     cookie: {
       httpOnly: true,
       sameSite: "lax",
-      secure: false,
+      secure: process.env.NODE_ENV === "production",
       maxAge: 1000 * 60 * 60 * 4
     }
   })

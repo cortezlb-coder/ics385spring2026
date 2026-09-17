@@ -21,6 +21,7 @@ export default function App() {
   const [loadState, setLoadState] = useState("loading");
   const [authStatus, setAuthStatus] = useState("checking");
   const [sessionUser, setSessionUser] = useState(null);
+  const [showLogin, setShowLogin] = useState(window.location.hash === "#login");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState("");
@@ -58,6 +59,15 @@ export default function App() {
     return () => {
       isMounted = false;
     };
+  }, []);
+
+  useEffect(() => {
+    function handleHashChange() {
+      setShowLogin(window.location.hash === "#login");
+    }
+
+    window.addEventListener("hashchange", handleHashChange);
+    return () => window.removeEventListener("hashchange", handleHashChange);
   }, []);
 
   useEffect(() => {
@@ -119,6 +129,7 @@ export default function App() {
 
       setSessionUser(payload.user);
       setAuthStatus("authenticated");
+      window.location.hash = "";
       setPassword("");
     } catch (error) {
       setSessionUser(null);
@@ -141,22 +152,22 @@ export default function App() {
     }
   }
 
-  const isAdmin = sessionUser?.role === "admin";
-
-  if (authStatus === "checking") {
-    return (
-      <main className="page-shell">
-        <section className="auth-card">
-          <h2>Checking session...</h2>
+  return (
+    <main className="page-shell">
+      {sessionUser ? (
+        <section className="session-banner" aria-label="Current session">
+          <div>
+            <p className="session-meta">Signed in as</p>
+            <strong>{sessionUser.username || sessionUser.displayName} ({sessionUser.role})</strong>
+          </div>
+          <button className="button secondary logout-button" onClick={handleLogout} type="button">
+            Log out
+          </button>
         </section>
-      </main>
-    );
-  }
+      ) : null}
 
-  if (authStatus !== "authenticated") {
-    return (
-      <main className="page-shell">
-        <section className="auth-card" aria-labelledby="login-title">
+      {showLogin && !sessionUser && (
+        <section className="auth-card" id="login" aria-labelledby="login-title">
           <p className="eyebrow">Secure Login</p>
           <h2 id="login-title">Sign in to Hawaii Hospitality Dashboard</h2>
           <p className="auth-copy">
@@ -194,34 +205,10 @@ export default function App() {
             </button>
           </form>
         </section>
-      </main>
-    );
-  }
-
-  return (
-    <main className="page-shell">
-      <section className="session-banner" aria-label="Current session">
-        <div>
-          <p className="session-meta">Signed in as</p>
-          <strong>{sessionUser.username} ({sessionUser.role})</strong>
-        </div>
-        <button className="button secondary logout-button" onClick={handleLogout} type="button">
-          Log out
-        </button>
-      </section>
-      <MarketingPage property={property} loadState={loadState} />
-      {isAdmin ? (
-        <Dashboard property={property} />
-      ) : (
-        <section className="auth-card limited-card">
-          <p className="eyebrow">User Access</p>
-          <h3>Dashboard is admin-only.</h3>
-          <p className="auth-copy">
-            You are signed in as a standard user. Marketing content is available, but Week 14d
-            admin dashboard metrics are restricted to admin accounts.
-          </p>
-        </section>
       )}
+
+      <MarketingPage property={property} loadState={loadState} />
+      <Dashboard property={property} />
     </main>
   );
 }
