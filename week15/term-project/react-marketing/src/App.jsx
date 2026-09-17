@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Dashboard from "./components/Dashboard";
 import MarketingPage from "./components/MarketingPage";
 
-const API_BASE = "http://localhost:3000";
+const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:3000";
 
 const fallbackProperty = {
   name: "Maui Surf House",
@@ -31,7 +31,7 @@ export default function App() {
 
     async function loadProperty() {
       try {
-        const response = await fetch("http://localhost:3000/properties?format=json");
+        const response = await fetch(`${API_BASE}/properties?format=json`);
 
         if (!response.ok) {
           throw new Error(`Request failed with status ${response.status}`);
