@@ -102,6 +102,7 @@ The older week folders are still in the repo too, so you can see the project gro
 - `views/properties.ejs`: Simple rendered property page.
 - `react-marketing/`: Vite + React marketing page for the PRD hero, about, amenities, and CTA sections.
 - `react-marketing/`: Vite + React marketing page and dashboard for the PRD hero, about, amenities, CTA, charts, and weather.
+- `docs/data-flow-diagram.md`: Mermaid data flow diagram for the frontend, backend, database, authentication, and dashboard integrations.
 - `postman/week11-properties-routes.postman_collection.json`: API test collection.
 - `.env`: Holds `MONGO_URI`.
 - `.gitignore`: Excludes `node_modules` and `.env`.
