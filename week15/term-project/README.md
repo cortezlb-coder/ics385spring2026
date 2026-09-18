@@ -78,10 +78,13 @@ Each component should receive explicit data fields instead of generic copy.
 - The site may also surface local food, surf cam, weather, and night events as supporting content.
 
 ## Current Repo Status
-This repo currently contains the Express, Mongoose, and EJS version of the project. It already has:
+This repo currently contains the Express, Mongoose, EJS, and React versions of the project. It has:
 - A MongoDB property model in `models/Property.js`
 - A seed script in `seed.js`
 - Property routes and review posting in `index.js`
+- Local session authentication and role-based admin protection
+- Google OAuth login through Passport.js
+- Automated authentication and authorization tests in `tests/auth.test.js`
 - A browser view in `views/properties.ejs`
 - A Postman collection in `postman/week11-properties-routes.postman_collection.json`
 - A marketing page mock and screenshot in `docs/marketing-page.html` and `docs/marketing-page.png`
@@ -93,18 +96,22 @@ The older week folders are still in the repo too, so you can see the project gro
 - Week 11: added the property routes, review posting, filters, and the EJS page for the browser.
 - Week 12: changed the project to match the Maui Surf House PRD, simplified the seed to one property, added the marketing page mock, and built the React marketing page with screenshots.
 - Week 13: added the React dashboard, Chart.js visualizations, backend property loading, and weather integration.
-- Week 14–15 (planned): wrap dashboard with Passport.js authentication, add local foods API integration, and add live surf cam feed to the dashboard.
+- Week 14: added local login, sessions, bcrypt password hashing, role-based admin routes, and the protected admin dashboard.
+- Week 15: added Google OAuth, finalized the PRD v3 authentication requirements, and added automated Jest/Supertest coverage for login, authorization, property updates, logout, and the Google login redirect.
 
 ## Project Structure
 - `index.js`: Express app, MongoDB connection, and property routes.
 - `models/Property.js`: Property and review schema.
+- `models/User.js`: Local and Google user schema with role information.
+- `routes/auth.js`: Google OAuth routes and Passport logout route.
+- `config/passport.js`: Passport serialization and Google strategy configuration.
 - `seed.js`: Deletes old records and inserts the single Maui Surf House listing.
 - `views/properties.ejs`: Simple rendered property page.
-- `react-marketing/`: Vite + React marketing page for the PRD hero, about, amenities, and CTA sections.
 - `react-marketing/`: Vite + React marketing page and dashboard for the PRD hero, about, amenities, CTA, charts, and weather.
 - `docs/data-flow-diagram.md`: Mermaid data flow diagram for the frontend, backend, database, authentication, and dashboard integrations.
 - `postman/week11-properties-routes.postman_collection.json`: API test collection.
-- `.env`: Holds `MONGO_URI`.
+- `tests/auth.test.js`: Jest and Supertest authentication and authorization tests.
+- `.env`: Holds local database, session, frontend, and OAuth configuration.
 - `.gitignore`: Excludes `node_modules` and `.env`.
 
 ## Requirements
@@ -114,15 +121,24 @@ The older week folders are still in the repo too, so you can see the project gro
 ## Setup
 1. Install dependencies:
 	`npm install`
-2. Add your connection string in `.env`:
+2. Copy `.env.example` to `.env` and add your local values:
+
+```powershell
+Copy-Item .env.example .env
+```
+
+At minimum, configure `MONGO_URI` and `SESSION_SECRET`:
 
 ```env
 MONGO_URI=your_mongodb_connection_string
+SESSION_SECRET=change_this_to_a_long_random_secret
 ```
 
 Examples:
 - Atlas: `MONGO_URI=mongodb+srv://<username>:<password>@<cluster-url>/<db-name>?retryWrites=true&w=majority`
 - Local: `MONGO_URI=mongodb://127.0.0.1:27017/hawaii-properties`
+
+For Google login, create OAuth 2.0 credentials in Google Cloud Console and add `http://localhost:3000/auth/google/callback` as an authorized redirect URI. Then set `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, and `GOOGLE_CALLBACK_URL` in `.env`.
 
 ## Run The App
 1. Seed the database:
@@ -140,12 +156,29 @@ Examples:
 3. Build the React page:
 	`npm --prefix react-marketing run build`
 
+## Run Tests
+Run the backend authentication and authorization tests from the project directory:
+
+```powershell
+npm test
+```
+
+The tests use mocked models and `NODE_ENV=test`, so they do not require a live MongoDB connection.
+
 ## React Environment
 - `VITE_WEATHER_KEY`: OpenWeatherMap API key.
-- `VITE_LOCAL_FOODS_KEY`: (Week 14–15) API key for local restaurants/food integrations.
-- `VITE_SURF_CAM_URL`: (Week 14–15) URL or API key for live surf cam feed.
 
 ## API Routes
+- `GET /auth/session`
+	- Returns the current session state and signed-in user details.
+- `POST /auth/login`
+	- Authenticates a seeded local user and creates a session.
+- `POST /auth/logout`
+	- Destroys the current local session.
+- `GET /auth/google`
+	- Starts Google OAuth when Google credentials are configured.
+- `GET /auth/google/callback`
+	- Completes Google OAuth and redirects to the React frontend.
 - `GET /properties`
 	- Lists properties.
 	- Returns JSON with `?format=json`.
@@ -155,6 +188,10 @@ Examples:
 	- Returns one property by MongoDB id.
 - `POST /properties/:id/reviews`
 	- Adds a review with `guestName`, `rating`, and `comment`.
+- `GET /admin/dashboard`
+	- Returns protected property and review metrics for admin users.
+- `PUT /admin/properties/:id`
+	- Updates allowed property fields for admin users.
 
 ## Testable Acceptance Criteria
 - `GET /properties` returns status `200` and includes one seeded property named `Maui Surf House` with `island` equal to `Maui`.
@@ -181,7 +218,7 @@ Examples:
 | AC-8 Secret hygiene | Pass | `.env` is ignored and `.env.example` contains placeholders and local URLs only. |
 
 ## Reflection
-Week 13 built a dashboard with three charts showing real Hawaii tourism data from DBEDT and live weather from OpenWeatherMap. The Dashboard component is modular and self-contained, so it can be wrapped with Passport.js authentication in Week 14 without any refactoring. It handles API failures gracefully by showing fallback data instead of breaking. I used Chart.js with react-chartjs-2 to render the visualizations, pulled annual aggregates from three CSV files you provided (Australian visitor arrivals, hotel occupancy, repeater rates), and wired up environment variables to keep API keys secure. Next, I'm planning to add admin authentication, a local foods API to show nearby restaurants, and a live surf cam feed to make the dashboard more useful for surfers planning their visit.
+Week 13 built a dashboard with three charts showing Hawaii tourism data from DBEDT and live weather from OpenWeatherMap. The Dashboard component is modular and handles API failures with fallback data. Weeks 14 and 15 extended the project with bcrypt-based local authentication, Passport sessions, role-protected admin routes, Google OAuth, and automated tests. The main remaining maintenance work is to keep the README, environment template, and acceptance evidence synchronized as the project changes.
 
 ## Week 14d Updates (Login + Protected Admin Dashboard)
 
