@@ -34,6 +34,7 @@ const defaultWeather = {
   temperatures: [79, 78, 77, 76, 75, 74]
 };
 
+// Keep the chart readable by formatting large values with commas.
 function formatMillions(value) {
   return `${value.toLocaleString()}`;
 }
@@ -46,6 +47,7 @@ export default function Dashboard({ property }) {
     let isMounted = true;
 
     async function loadWeather() {
+      // Vite inserts this public frontend setting during the production build.
       const apiKey = import.meta.env.VITE_WEATHER_KEY;
 
       if (!apiKey) {
@@ -54,6 +56,7 @@ export default function Dashboard({ property }) {
       }
 
       try {
+        // OpenWeatherMap returns the forecast used by the third chart.
         const response = await fetch(
           `https://api.openweathermap.org/data/2.5/forecast?lat=20.7984&lon=-156.3319&units=imperial&appid=${apiKey}`
         );
@@ -96,6 +99,7 @@ export default function Dashboard({ property }) {
     };
   }, []);
 
+  // Chart.js expects labels and datasets in this shape.
   const arrivalsChart = useMemo(
     () => ({
       labels: tourismSeries.map((item) => item.year),

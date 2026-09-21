@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+// A review is embedded inside its property because reviews belong to one property.
 const reviewSchema = new mongoose.Schema(
   {
     guestName: {
@@ -27,6 +28,7 @@ const reviewSchema = new mongoose.Schema(
 );
 
 const propertySchema = new mongoose.Schema({
+  // This document is the main source of content for the React marketing page.
   name: String,
   island: String,
   type: String,

@@ -4,6 +4,7 @@ import MarketingPage from "./components/MarketingPage";
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:3000";
 
+// This lets the page remain useful if the backend is temporarily unavailable.
 const fallbackProperty = {
   name: "Maui Surf House",
   island: "Maui",
@@ -17,6 +18,7 @@ const fallbackProperty = {
 };
 
 export default function App() {
+  // State is data that can change while the user interacts with the page.
   const [property, setProperty] = useState(fallbackProperty);
   const [loadState, setLoadState] = useState("loading");
   const [authStatus, setAuthStatus] = useState("checking");
@@ -31,6 +33,7 @@ export default function App() {
 
     async function loadProperty() {
       try {
+        // Ask Express for the property stored in MongoDB.
         const response = await fetch(`${API_BASE}/properties?format=json`);
 
         if (!response.ok) {
@@ -75,6 +78,7 @@ export default function App() {
 
     async function loadSession() {
       try {
+        // The cookie tells the backend which browser session is logged in.
         const response = await fetch(`${API_BASE}/auth/session`, {
           credentials: "include",
           cache: "no-store"
@@ -109,6 +113,7 @@ export default function App() {
 
   async function handleLogin(event) {
     event.preventDefault();
+    // Stop the browser from reloading the page when the form is submitted.
     setAuthStatus("submitting");
     setLoginError("");
 
@@ -141,6 +146,7 @@ export default function App() {
 
   async function handleLogout() {
     try {
+      // The backend destroys the session and clears the cookie.
       await fetch(`${API_BASE}/auth/logout`, {
         method: "POST",
         credentials: "include"
@@ -160,10 +166,18 @@ export default function App() {
           <div>
             <p className="session-meta">Signed in as</p>
             <strong>{sessionUser.username || sessionUser.displayName} ({sessionUser.role})</strong>
+            {sessionUser.role === "admin" && <p className="admin-status">Admin account</p>}
           </div>
-          <button className="button secondary logout-button" onClick={handleLogout} type="button">
-            Log out
-          </button>
+          <div className="session-actions">
+            {sessionUser.role === "admin" && (
+              <a className="button secondary" href={`${API_BASE}/admin/dashboard`}>
+                Admin dashboard
+              </a>
+            )}
+            <button className="button secondary logout-button" onClick={handleLogout} type="button">
+              Log out
+            </button>
+          </div>
         </section>
       ) : null}
 

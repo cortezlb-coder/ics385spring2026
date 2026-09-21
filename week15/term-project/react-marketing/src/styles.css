@@ -118,6 +118,20 @@ a {
   font-weight: 700;
 }
 
+.admin-status {
+  margin: 6px 0 0;
+  color: var(--ocean);
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+
+.session-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
 .button.secondary.logout-button {
   background: #b42318;
   color: #ffffff;
