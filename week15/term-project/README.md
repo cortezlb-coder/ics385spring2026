@@ -51,6 +51,8 @@ Connection string examples:
 2. Start the dev server: `npm --prefix react-marketing run dev`
 3. Build for production: `npm --prefix react-marketing run build`
 
+You only need to do this manually for local development. In production, `npm install` on the backend automatically builds and serves this app (see [Deployment Notes](#deployment-notes)).
+
 React environment variable: `VITE_WEATHER_KEY` (OpenWeatherMap API key).
 
 ### Run tests
@@ -87,7 +89,7 @@ Tests use mocked models and `NODE_ENV=test`, so they don't need a live MongoDB c
 | `POST /auth/login` | Authenticates a local user and creates a session. |
 | `POST /auth/logout` | Destroys the current session. |
 | `GET /auth/google` | Starts Google OAuth when Google credentials are configured. |
-| `GET /auth/google/callback` | Completes Google OAuth and redirects to the React frontend. |
+| `GET /auth/google/callback` | Completes Google OAuth and redirects back into the app. |
 | `GET /properties` | Lists properties. Add `?format=json` for JSON, otherwise renders the EJS page. Supports island and rating filters. |
 | `GET /properties/:id` | Returns one property by MongoDB id. |
 | `POST /properties/:id/reviews` | Adds a review with `guestName`, `rating`, and `comment`. |
