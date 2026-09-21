@@ -79,6 +79,10 @@ app.use((req, res, next) => {
 
 function requireAuth(req, res, next) {
   if (!req.isAuthenticated()) {
+    if (req.headers.accept?.includes("text/html") && !req.headers.accept.includes("application/json")) {
+      return res.redirect("/login");
+    }
+
     return res.status(401).json({ error: "Authentication required." });
   }
 
@@ -87,6 +91,10 @@ function requireAuth(req, res, next) {
 
 function requireAdmin(req, res, next) {
   if (!req.isAuthenticated()) {
+    if (req.headers.accept?.includes("text/html") && !req.headers.accept.includes("application/json")) {
+      return res.redirect("/login");
+    }
+
     return res.status(401).json({ error: "Authentication required." });
   }
 
@@ -363,6 +371,10 @@ app.post("/properties/:id/reviews", async (req, res) => {
 
 app.get("/", (req, res) => {
   res.redirect("/properties");
+});
+
+app.get("/login", (req, res) => {
+  res.redirect(`${FRONTEND_ORIGIN}/#login`);
 });
 
 if (process.env.NODE_ENV !== "test") {

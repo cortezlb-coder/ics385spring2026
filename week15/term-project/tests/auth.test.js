@@ -21,6 +21,15 @@ test("AC-5: unauthenticated user cannot access admin dashboard", async () => {
   expect(res.body.error).toBe("Authentication required.");
 });
 
+test("AC-5: browser request redirects unauthenticated user to login", async () => {
+  const res = await request(app)
+    .get("/admin/dashboard")
+    .set("Accept", "text/html");
+
+  expect(res.statusCode).toBe(302);
+  expect(res.headers.location).toBe("/login");
+});
+
 test("AC-5: authenticated visitor cannot access admin dashboard", async () => {
   const agent = request.agent(app);
   const passwordHash = await bcrypt.hash("User123!", 10);
