@@ -32,6 +32,7 @@ if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET && process.
         if (!user) {
           user = await User.create({
             googleId: profile.id,
+            username: `google_${profile.id}`,
             displayName: profile.displayName,
             firstName: profile.name?.givenName || "",
             lastName: profile.name?.familyName || "",
