@@ -18,8 +18,7 @@ const amenityHighlights = [
   }
 ];
 
-const fallbackImageUrl =
-  "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80";
+const fallbackImageUrl = "/zetong-li-6xRVVRKvmu4-unsplash.jpg";
 
 function Header({ property }) {
   return (
@@ -41,9 +40,7 @@ function Header({ property }) {
 
 function Hero({ property, loadState, onBook }) {
   const locationLabel = `${property.island}, Hawaii`;
-  const imageUrl = property.imageURL?.includes("example.com")
-    ? fallbackImageUrl
-    : property.imageURL || fallbackImageUrl;
+  const imageUrl = fallbackImageUrl;
 
   return (
     <section className="hero">
