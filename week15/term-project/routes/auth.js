@@ -7,7 +7,10 @@ router.get("/auth/google", (req, res, next) => {
     return res.status(500).send("Google OAuth is not configured. Check the server .env file and restart the backend.");
   }
 
-  return passport.authenticate("google", { scope: ["profile", "email"] })(req, res, next);
+  return passport.authenticate("google", {
+    scope: ["profile", "email"],
+    prompt: "select_account"
+  })(req, res, next);
 });
 
 router.get(
