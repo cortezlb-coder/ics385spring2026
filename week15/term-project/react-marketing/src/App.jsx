@@ -171,9 +171,6 @@ export default function App() {
         <section className="auth-card" id="login" aria-labelledby="login-title">
           <p className="eyebrow">Secure Login</p>
           <h2 id="login-title">Sign in to Hawaii Hospitality Dashboard</h2>
-          <p className="auth-copy">
-            Use seeded accounts: admin / Admin123! or visitor / User123!
-          </p>
           <a className="button primary auth-submit" href={`${API_BASE}/auth/google`}>
             Continue with Google
           </a>
