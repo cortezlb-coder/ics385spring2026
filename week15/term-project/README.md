@@ -97,7 +97,7 @@ Tests use mocked models and `NODE_ENV=test`, so they don't need a live MongoDB c
 | `PUT /admin/properties/:id` | Updates allowed property fields (admin only). |
 
 ## Security
-- Helmet sets standard security headers on every response.
+- Helmet sets standard security headers on every response, with `connect-src` explicitly allowing `api.openweathermap.org` so the dashboard's live weather fetch isn't blocked.
 - express-validator checks and cleans input on `POST /auth/login` and `POST /properties/:id/reviews`.
 - Session cookies are `httpOnly`, `sameSite: lax`, and `secure` in production.
 - Local login and Google login both work for the same account: seeded local users have an email, so a Google sign-in with a matching verified email links to that same user instead of creating a duplicate.
@@ -148,6 +148,7 @@ Fixes made while deploying to Render:
 - **Logout reused the session:** logout now calls Passport's `req.logout()`, destroys the server session, and clears `connect.sid`.
 - **Google silently reused the account:** Google login uses `prompt: "select_account"` so the user can choose an account after application logout.
 - **`vite: not found` build failure:** `vite` lives in `react-marketing`'s devDependencies, and Render's `NODE_ENV=production` made `npm install` skip devDependencies. Fixed by using `npm install --include=dev --prefix react-marketing` in the `build` script.
+- **Live weather always showed the fallback:** Helmet's default Content-Security-Policy blocks `fetch()` calls to any domain except the app's own origin, so the dashboard's request to `api.openweathermap.org` was silently blocked by the browser. Fixed by adding `api.openweathermap.org` to the `connect-src` directive.
 
 ## Week-by-Week Summary
 - **Week 10:** First time connecting Express to MongoDB Atlas — set up a database user, wrote my first Mongoose schema, and got a seed script to load one property.
