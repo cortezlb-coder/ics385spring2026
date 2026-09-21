@@ -51,11 +51,15 @@ async function seedDB() {
       {
         username: "admin",
         passwordHash: adminPasswordHash,
+        email: "admin@mauisurfhouse.test",
+        provider: "local",
         role: "admin"
       },
       {
         username: "visitor",
         passwordHash: userPasswordHash,
+        email: "visitor@mauisurfhouse.test",
+        provider: "local",
         role: "user"
       }
     ]);

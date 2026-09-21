@@ -12,7 +12,7 @@ jest.mock("../models/Property");
 
 const User = require("../models/User");
 const Property = require("../models/Property");
-const app = require("../index");
+const app = require("../app");
 
 test("AC-5: unauthenticated user cannot access admin dashboard", async () => {
   const res = await request(app).get("/admin/dashboard");

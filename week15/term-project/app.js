@@ -3,15 +3,15 @@ const express = require("express");
 const mongoose = require("mongoose");
 const dns = require("dns");
 const path = require("path");
-const bcrypt = require("bcrypt");
+const helmet = require("helmet");
 const session = require("express-session");
 const MongoStore = require("connect-mongo").default;
 const passport = require("passport");
 const authRoutes = require("./routes/auth");
+const publicRoutes = require("./routes/public");
+const adminRoutes = require("./routes/admin");
 
 require("./config/passport");
-const Property = require("./models/Property");
-const User = require("./models/User");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -30,8 +30,26 @@ dns.setServers(["1.1.1.1", "8.8.8.8"]);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
+const REACT_BUILD_PATH = path.join(__dirname, "react-marketing", "dist");
+
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+        // properties.ejs uses an inline <style> block
+        "style-src": ["'self'", "'unsafe-inline'"]
+      }
+    }
+  })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+if (process.env.NODE_ENV === "production") {
+  // Serve the built React app from the same origin so cookies stay sameSite=lax.
+  app.use(express.static(REACT_BUILD_PATH));
+}
 app.use(
   session({
     secret: process.env.SESSION_SECRET || "week14d-dev-secret",
@@ -48,7 +66,7 @@ app.use(
     saveUninitialized: false,
     cookie: {
       httpOnly: true,
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      sameSite: "lax",
       secure: process.env.NODE_ENV === "production",
       maxAge: 1000 * 60 * 60 * 4
     }
@@ -57,7 +75,6 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(authRoutes);
 
 app.use((req, res, next) => {
   const requestOrigin = req.headers.origin;
@@ -77,33 +94,7 @@ app.use((req, res, next) => {
   return next();
 });
 
-function requireAuth(req, res, next) {
-  if (!req.isAuthenticated()) {
-    if (req.headers.accept?.includes("text/html") && !req.headers.accept.includes("application/json")) {
-      return res.redirect("/login");
-    }
-
-    return res.status(401).json({ error: "Authentication required." });
-  }
-
-  return next();
-}
-
-function requireAdmin(req, res, next) {
-  if (!req.isAuthenticated()) {
-    if (req.headers.accept?.includes("text/html") && !req.headers.accept.includes("application/json")) {
-      return res.redirect("/login");
-    }
-
-    return res.status(401).json({ error: "Authentication required." });
-  }
-
-  if (req.user.role !== "admin") {
-    return res.status(403).json({ error: "Admin access required." });
-  }
-
-  return next();
-}
+app.use(authRoutes);
 
 if (process.env.NODE_ENV !== "test") {
   mongoose
@@ -112,270 +103,8 @@ if (process.env.NODE_ENV !== "test") {
     .catch((err) => console.error("MongoDB connection error:", err));
 }
 
-function buildPropertyFilter(queryParams) {
-  const filter = {};
-
-  if (queryParams.island) {
-    filter.island = queryParams.island;
-  }
-
-  if (queryParams.minRating || queryParams.maxRating) {
-    const min = Number(queryParams.minRating || 1);
-    const max = Number(queryParams.maxRating || 5);
-
-    if (Number.isNaN(min) || Number.isNaN(max)) {
-      return { error: "minRating and maxRating must be numbers." };
-    }
-
-    const clampedMin = Math.max(1, Math.min(5, min));
-    const clampedMax = Math.max(1, Math.min(5, max));
-
-    filter.reviews = {
-      $elemMatch: {
-        rating: {
-          $gte: clampedMin,
-          $lte: clampedMax
-        }
-      }
-    };
-  }
-
-  return { filter };
-}
-
-app.get("/auth/session", (req, res) => {
-  res.setHeader("Cache-Control", "no-store");
-
-  if (!req.isAuthenticated()) {
-    return res.json({ authenticated: false });
-  }
-
-  return res.json({
-    authenticated: true,
-    user: {
-      id: req.user.id,
-      username: req.user.username,
-      displayName: req.user.displayName,
-      email: req.user.email,
-      role: req.user.role
-    }
-  });
-});
-
-app.post("/auth/login", async (req, res) => {
-  try {
-    const { username, password } = req.body;
-
-    if (!username || !password) {
-      return res.status(400).json({ error: "username and password are required." });
-    }
-
-    const user = await User.findOne({ username: String(username).toLowerCase().trim() });
-
-    if (!user) {
-      return res.status(401).json({ error: "Invalid username or password." });
-    }
-
-    const isPasswordValid = await bcrypt.compare(password, user.passwordHash);
-
-    if (!isPasswordValid) {
-      return res.status(401).json({ error: "Invalid username or password." });
-    }
-
-    const sessionUser = {
-      id: String(user._id),
-      username: user.username,
-      role: user.role
-    };
-
-    return req.login(user, (loginError) => {
-      if (loginError) {
-        return res.status(500).json({ error: "Login failed.", details: loginError.message });
-      }
-
-      return res.json({
-        message: "Login successful.",
-        user: sessionUser
-      });
-    });
-  } catch (err) {
-    return res.status(500).json({ error: "Login failed.", details: err.message });
-  }
-});
-
-app.post("/auth/logout", requireAuth, (req, res) => {
-  req.logout((logoutErr) => {
-    if (logoutErr) {
-      return res.status(500).json({ error: "Logout failed." });
-    }
-
-    req.session.destroy((destroyErr) => {
-      if (destroyErr) {
-        return res.status(500).json({ error: "Logout failed." });
-      }
-
-      res.clearCookie("connect.sid");
-      return res.json({ message: "Logout successful." });
-    });
-  });
-});
-
-// GET /properties
-// Returns JSON for API clients and renders EJS for browser requests.
-app.get("/properties", async (req, res) => {
-  try {
-    const { filter, error } = buildPropertyFilter(req.query);
-
-    if (error) {
-      return res.status(400).json({ error });
-    }
-
-    const properties = await Property.find(filter).sort({ name: 1 });
-
-    if (req.query.format === "json" || !req.accepts("html")) {
-      return res.json(properties);
-    }
-
-    return res.render("properties", {
-      properties,
-      filters: {
-        island: req.query.island || "",
-        minRating: req.query.minRating || ""
-      }
-    });
-  } catch (err) {
-    return res.status(500).json({ error: "Failed to fetch properties.", details: err.message });
-  }
-});
-
-// GET /properties/:id
-app.get("/properties/:id", async (req, res) => {
-  try {
-    const property = await Property.findById(req.params.id);
-
-    if (!property) {
-      return res.status(404).json({ error: "Property not found." });
-    }
-
-    return res.json(property);
-  } catch (err) {
-    return res.status(400).json({ error: "Invalid property ID.", details: err.message });
-  }
-});
-
-app.get("/admin/dashboard", requireAdmin, async (req, res) => {
-  try {
-    const propertyCount = await Property.countDocuments();
-    const reviewCount = await Property.aggregate([
-      {
-        $project: {
-          reviewCount: { $size: "$reviews" }
-        }
-      },
-      {
-        $group: {
-          _id: null,
-          total: { $sum: "$reviewCount" }
-        }
-      }
-    ]);
-
-    return res.json({
-      message: "Admin dashboard data loaded.",
-      metrics: {
-        propertyCount,
-        reviewCount: reviewCount[0]?.total || 0
-      }
-    });
-  } catch (err) {
-    return res.status(500).json({ error: "Failed to load admin dashboard.", details: err.message });
-  }
-});
-
-app.put("/admin/properties/:id", requireAdmin, async (req, res) => {
-  try {
-    const allowedFields = [
-      "name",
-      "island",
-      "type",
-      "description",
-      "amenities",
-      "targetSegment",
-      "imageURL"
-    ];
-
-    const updates = {};
-
-    allowedFields.forEach((field) => {
-      if (req.body[field] !== undefined) {
-        updates[field] = req.body[field];
-      }
-    });
-
-    const updatedProperty = await Property.findByIdAndUpdate(req.params.id, updates, {
-      new: true,
-      runValidators: true
-    });
-
-    if (!updatedProperty) {
-      return res.status(404).json({ error: "Property not found." });
-    }
-
-    return res.json({ message: "Property updated.", property: updatedProperty });
-  } catch (err) {
-    return res.status(400).json({ error: "Failed to update property.", details: err.message });
-  }
-});
-
-// POST /properties/:id/reviews
-app.post("/properties/:id/reviews", async (req, res) => {
-  try {
-    const { guestName, rating, comment } = req.body;
-
-    if (!guestName || !comment || rating === undefined) {
-      return res
-        .status(400)
-        .json({ error: "guestName, rating, and comment are required." });
-    }
-
-    const numericRating = Number(rating);
-    if (!Number.isFinite(numericRating) || numericRating < 1 || numericRating > 5) {
-      return res.status(400).json({ error: "rating must be a number between 1 and 5." });
-    }
-
-    const property = await Property.findById(req.params.id);
-
-    if (!property) {
-      return res.status(404).json({ error: "Property not found." });
-    }
-
-    const newReview = {
-      guestName,
-      rating: numericRating,
-      comment,
-      date: new Date()
-    };
-
-    property.reviews.push(newReview);
-    await property.save();
-
-    return res.status(201).json({
-      message: "Review added successfully.",
-      propertyId: property._id,
-      review: property.reviews[property.reviews.length - 1]
-    });
-  } catch (err) {
-    return res.status(400).json({ error: "Unable to add review.", details: err.message });
-  }
-});
-
-app.get("/", (req, res) => {
-  res.redirect("/properties");
-});
-
-app.get("/login", (req, res) => {
-  res.redirect(`${FRONTEND_ORIGIN}/#login`);
-});
+app.use(publicRoutes);
+app.use(adminRoutes);
 
 if (process.env.NODE_ENV !== "test") {
   app.listen(PORT, () => {
