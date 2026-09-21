@@ -107,6 +107,8 @@ Run `npm run seed` to insert default accounts:
 
 Both come with a placeholder email so Google sign-in can link to the same account. Passwords are stored as bcrypt hashes in the `users` collection — never as plain text.
 
+**Demo only:** these are fixed, publicly documented credentials meant for local development and the class code review. Do not reuse this password anywhere else, and re-seed the live database with a private password before treating this as a real production app.
+
 ## PRD Summary
 - Project: Maui Surf House, on Maui
 - Visitor segment: Australians coming to Maui to surf
