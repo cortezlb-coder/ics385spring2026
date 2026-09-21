@@ -76,7 +76,8 @@ export default function App() {
     async function loadSession() {
       try {
         const response = await fetch(`${API_BASE}/auth/session`, {
-          credentials: "include"
+          credentials: "include",
+          cache: "no-store"
         });
         const payload = await response.json();
 

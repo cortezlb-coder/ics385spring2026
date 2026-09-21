@@ -136,6 +136,8 @@ function buildPropertyFilter(queryParams) {
 }
 
 app.get("/auth/session", (req, res) => {
+  res.setHeader("Cache-Control", "no-store");
+
   if (!req.isAuthenticated()) {
     return res.json({ authenticated: false });
   }
