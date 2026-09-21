@@ -364,6 +364,7 @@ h1 {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  font: inherit;
   border-radius: 14px;
   padding: 14px 18px;
   text-decoration: none;
@@ -539,6 +540,52 @@ h1 {
   margin: 0 auto 20px;
   color: rgba(255, 255, 255, 0.84);
   line-height: 1.7;
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(16, 53, 75, 0.62);
+}
+
+.booking-modal {
+  position: relative;
+  width: min(100%, 520px);
+  padding: 32px;
+  border-radius: 24px;
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: 0 24px 70px rgba(16, 53, 75, 0.28);
+}
+
+.booking-modal h2 {
+  margin-bottom: 12px;
+  font-size: 2.2rem;
+}
+
+.booking-modal > p:not(.eyebrow) {
+  margin: 0 0 22px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.modal-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ink);
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
 }
 
 @media (max-width: 960px) {

@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 const amenityHighlights = [
   {
     title: "Surfboard storage and board rental support",
@@ -34,7 +36,7 @@ function Header({ property }) {
   );
 }
 
-function Hero({ property, loadState }) {
+function Hero({ property, loadState, onBook }) {
   const locationLabel = `${property.island}, Hawaii`;
 
   return (
@@ -44,7 +46,7 @@ function Hero({ property, loadState }) {
         <h2>{property.name} keeps the booking path simple.</h2>
         <p className="lede">{property.description}</p>
         <div className="actions">
-          <a className="button primary" href="#cta">Book a Stay</a>
+          <button className="button primary" onClick={onBook} type="button">Book a Stay</button>
           <a className="button secondary" href="#dashboard">See Dashboard</a>
         </div>
         <div className="stats" aria-label="Property highlights">
@@ -114,7 +116,7 @@ function Amenities({ property }) {
   );
 }
 
-function CTA() {
+function CTA({ onBook }) {
   return (
     <section className="cta" id="cta">
       <p className="eyebrow light">Next step</p>
@@ -123,21 +125,51 @@ function CTA() {
         The page keeps the message direct: show the stay, show the surf support, and let the user
         move to booking without extra noise.
       </p>
-      <a className="button primary" href="/booking">Check Availability</a>
+      <button className="button primary" onClick={onBook} type="button">Check Availability</button>
     </section>
   );
 }
 
 export default function MarketingPage({ property, loadState }) {
+  const [showBookingNotice, setShowBookingNotice] = useState(false);
+
   return (
     <>
       <Header property={property} />
-      <Hero property={property} loadState={loadState} />
+      <Hero property={property} loadState={loadState} onBook={() => setShowBookingNotice(true)} />
       <div className="content-grid">
         <About property={property} />
         <Amenities property={property} />
       </div>
-      <CTA />
+      <CTA onBook={() => setShowBookingNotice(true)} />
+      {showBookingNotice && (
+        <div className="modal-backdrop" role="presentation" onClick={() => setShowBookingNotice(false)}>
+          <section
+            aria-labelledby="booking-notice-title"
+            aria-modal="true"
+            className="booking-modal"
+            onClick={(event) => event.stopPropagation()}
+            role="dialog"
+          >
+            <button
+              aria-label="Close booking notice"
+              className="modal-close"
+              onClick={() => setShowBookingNotice(false)}
+              type="button"
+            >
+              ×
+            </button>
+            <p className="eyebrow">Booking update</p>
+            <h2 id="booking-notice-title">Appointments are under construction.</h2>
+            <p>
+              Online booking is not available yet. Email me and I will help arrange your Maui surf stay.
+            </p>
+            <a className="button primary" href="mailto:cortezlb@hawaii.edu?subject=Maui%20Surf%20House%20appointment">
+              Email me
+            </a>
+          </section>
+        </div>
+      )}
     </>
   );
 }

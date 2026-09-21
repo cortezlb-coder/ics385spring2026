@@ -278,3 +278,16 @@ FRONTEND_ORIGIN=http://localhost:5173
 
 ### Reflection Paragraph
 One challenge I faced in Week 14d was keeping authentication stable across both the React frontend and the Express backend. During testing, the session appeared to work at login but sometimes failed after refresh, so I traced the full request flow between /auth/login, /auth/session, and the browser cookie behavior. I resolved that part by verifying session middleware settings, confirming frontend requests used credentials: include, and making sure the frontend and backend were running on the expected ports. I also ran into an Atlas database issue where seeding failed with querySrv ECONNREFUSED, which blocked the users collection from being created at first. After switching to a non-SRV Atlas URI with explicit shard hosts and reseeding, the data loaded correctly and Atlas showed user documents with bcrypt passwordHash values.
+
+## Issues Found and Resolved During Render Deployment
+
+The deployment and authentication flow required several fixes that are now documented for the final code review:
+
+- **Google `redirect_uri_mismatch`:** registered the exact production callback in Google Cloud Console and Render: `https://ics385spring2026-a20r.onrender.com/auth/google/callback`.
+- **Google callback HTTP 500:** accepted the email-verification profile fields returned by Google.
+- **MongoDB duplicate username error:** new Google users originally had `username: null`, which conflicted with the unique `username` index. New Google users now receive a unique `google_<google-id>` username.
+- **Frontend session returned unauthenticated:** configured production cookies for the separate Render frontend/backend origins and kept `credentials: "include"` on session requests.
+- **Cached session state:** added `Cache-Control: no-store` on `/auth/session` and `cache: "no-store"` in the React session fetch.
+- **Logout reused the session:** logout now calls Passport's `req.logout()`, destroys the server session, and clears `connect.sid`.
+- **Google silently reused the account:** Google login uses `prompt: "select_account"` so the user can choose an account after application logout.
+- **Stale frontend deployment:** redeployed the Static Site with root `week15/term-project/react-marketing`, build command `npm install && npm run build`, publish directory `dist`, and `VITE_API_BASE_URL` set to the live backend.
