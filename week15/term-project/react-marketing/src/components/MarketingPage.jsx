@@ -1,22 +1,17 @@
 import { useState } from "react";
 
-const amenityHighlights = [
-  {
-    title: "Surfboard storage and board rental support",
-    description: "Keep gear safe, dry, and ready for dawn patrol.",
-    mark: "01"
-  },
-  {
-    title: "Outdoor shower",
-    description: "Rinse off sand and salt before heading back in.",
-    mark: "02"
-  },
-  {
-    title: "Jeep or Tacoma rental options",
-    description: "Move boards and beach gear around the island with ease.",
-    mark: "03"
-  }
-];
+const amenityDescriptions = {
+  "WiFi": "Stay connected to check the surf report or share photos from the beach.",
+  "Surfboard storage": "Keep gear safe, dry, and ready for dawn patrol.",
+  "Surfboard storage and board rental support": "Keep gear safe, dry, and ready for dawn patrol.",
+  "Outdoor shower": "Rinse off sand and salt before heading back inside.",
+  "Parking": "Park your rental Jeep or Tacoma right at the house, no street hunting.",
+  "Washer": "Wash salty wetsuits and towels between surf sessions.",
+  "Jeep or Tacoma rental available": "Move boards and beach gear around the island with ease.",
+  "Jeep or Tacoma rental options": "Move boards and beach gear around the island with ease."
+};
+
+const defaultAmenityDescription = "One more way this stay is set up for surfers.";
 
 const fallbackImageUrl = "/maui-surf-house.jpg";
 
@@ -102,14 +97,15 @@ function Amenities({ property }) {
       <h3>Amenities</h3>
       <div className="amenity-list">
         {property.amenities.map((amenity, index) => {
-          const highlight = amenityHighlights[index] || amenityHighlights[0];
+          const description = amenityDescriptions[amenity] || defaultAmenityDescription;
+          const mark = String(index + 1).padStart(2, "0");
 
           return (
             <article key={amenity} className="amenity-card">
-              <div className="mark">{highlight.mark}</div>
+              <div className="mark">{mark}</div>
               <div>
                 <h4>{amenity}</h4>
-                <p>{highlight.description}</p>
+                <p>{description}</p>
               </div>
             </article>
           );
