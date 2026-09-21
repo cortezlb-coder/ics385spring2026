@@ -196,13 +196,19 @@ app.post("/auth/login", async (req, res) => {
 });
 
 app.post("/auth/logout", requireAuth, (req, res) => {
-  req.session.destroy((destroyErr) => {
-    if (destroyErr) {
+  req.logout((logoutErr) => {
+    if (logoutErr) {
       return res.status(500).json({ error: "Logout failed." });
     }
 
-    res.clearCookie("connect.sid");
-    return res.json({ message: "Logout successful." });
+    req.session.destroy((destroyErr) => {
+      if (destroyErr) {
+        return res.status(500).json({ error: "Logout failed." });
+      }
+
+      res.clearCookie("connect.sid");
+      return res.json({ message: "Logout successful." });
+    });
   });
 });
 
