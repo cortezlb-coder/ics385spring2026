@@ -66,10 +66,8 @@ app.use(
     saveUninitialized: false,
     cookie: {
       httpOnly: true,
-      // "none" is required in production because the React frontend and this
-      // API are deployed as separate origins on Render; "lax" blocks the
-      // session cookie on cross-origin fetch() calls.
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      // Same origin now that Express serves the built React app, so "lax" works.
+      sameSite: "lax",
       secure: process.env.NODE_ENV === "production",
       maxAge: 1000 * 60 * 60 * 4
     }

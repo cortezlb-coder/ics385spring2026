@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import Dashboard from "./components/Dashboard";
 import MarketingPage from "./components/MarketingPage";
 
-const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:3000";
+// In production this app is served by the same Express server as the API,
+// so requests can go to the same origin unless VITE_API_BASE_URL overrides it.
+const API_BASE = import.meta.env.VITE_API_BASE_URL ?? (import.meta.env.PROD ? "" : "http://localhost:3000");
 
 // This lets the page remain useful if the backend is temporarily unavailable.
 const fallbackProperty = {

@@ -93,11 +93,20 @@ router.get("/auth/google", (req, res, next) => {
 router.get(
   "/auth/google/callback",
   passport.authenticate("google", {
-    failureRedirect: `${process.env.FRONTEND_ORIGIN || "http://localhost:5173"}/#login`,
+    failureRedirect:
+      process.env.NODE_ENV === "production"
+        ? "/#login"
+        : `${process.env.FRONTEND_ORIGIN || "http://localhost:5173"}/#login`,
     failureFlash: false,
   }),
   (req, res) => {
-    res.redirect(process.env.FRONTEND_ORIGIN || "http://localhost:5173");
+    // In production Express serves the built React app itself, so redirect
+    // within the same origin. In dev, the React app runs on its own Vite port.
+    if (process.env.NODE_ENV === "production") {
+      return res.redirect("/");
+    }
+
+    return res.redirect(process.env.FRONTEND_ORIGIN || "http://localhost:5173");
   }
 );
 

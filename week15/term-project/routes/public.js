@@ -39,8 +39,14 @@ router.get("/", (req, res) => {
 });
 
 router.get("/login", (req, res) => {
+  // In production Express serves the built React app itself, so redirect
+  // within the same origin. In dev, the React app runs on its own Vite port.
+  if (process.env.NODE_ENV === "production") {
+    return res.redirect("/#login");
+  }
+
   const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN || "http://localhost:5173";
-  res.redirect(`${FRONTEND_ORIGIN}/#login`);
+  return res.redirect(`${FRONTEND_ORIGIN}/#login`);
 });
 
 // GET /properties
