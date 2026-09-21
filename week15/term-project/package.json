@@ -7,7 +7,7 @@
     "start": "node app.js",
     "seed": "node seed.js",
     "test": "jest",
-    "build": "npm install --prefix react-marketing && npm run build --prefix react-marketing",
+    "build": "npm install --include=dev --prefix react-marketing && npm run build --prefix react-marketing",
     "postinstall": "npm run build"
   },
   "keywords": [],
