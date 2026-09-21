@@ -28,7 +28,8 @@ const seedProperties = [
       "Jeep or Tacoma rental available"
     ],
     targetSegment: "Australian surfers",
-    imageURL: "https://example.com/maui-surf-house.jpg"
+    imageURL:
+      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80"
   }
 ];
 

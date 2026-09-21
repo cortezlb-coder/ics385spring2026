@@ -18,6 +18,9 @@ const amenityHighlights = [
   }
 ];
 
+const fallbackImageUrl =
+  "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80";
+
 function Header({ property }) {
   return (
     <header className="topbar">
@@ -38,6 +41,9 @@ function Header({ property }) {
 
 function Hero({ property, loadState, onBook }) {
   const locationLabel = `${property.island}, Hawaii`;
+  const imageUrl = property.imageURL?.includes("example.com")
+    ? fallbackImageUrl
+    : property.imageURL || fallbackImageUrl;
 
   return (
     <section className="hero">
@@ -67,7 +73,7 @@ function Hero({ property, loadState, onBook }) {
 
       <div
         className="hero-visual"
-        style={{ "--hero-image": `url("${property.imageURL}")` }}
+        style={{ "--hero-image": `url("${imageUrl}")` }}
         aria-label={`${property.name} featured image`}
         role="img"
       >
