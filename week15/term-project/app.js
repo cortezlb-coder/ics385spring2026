@@ -47,7 +47,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 if (process.env.NODE_ENV === "production") {
-  // Serve the built React app from the same origin so cookies stay sameSite=lax.
+  // Serves the built React app if it's ever deployed from this same Express service.
   app.use(express.static(REACT_BUILD_PATH));
 }
 app.use(
@@ -66,7 +66,10 @@ app.use(
     saveUninitialized: false,
     cookie: {
       httpOnly: true,
-      sameSite: "lax",
+      // "none" is required in production because the React frontend and this
+      // API are deployed as separate origins on Render; "lax" blocks the
+      // session cookie on cross-origin fetch() calls.
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
       secure: process.env.NODE_ENV === "production",
       maxAge: 1000 * 60 * 60 * 4
     }
