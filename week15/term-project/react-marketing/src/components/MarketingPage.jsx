@@ -18,7 +18,7 @@ const amenityHighlights = [
   }
 ];
 
-const fallbackImageUrl = "/zetong-li-6xRVVRKvmu4-unsplash.jpg";
+const fallbackImageUrl = "/maui-surf-house.jpg";
 
 function Header({ property }) {
   return (
