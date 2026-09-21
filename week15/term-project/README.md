@@ -1,3 +1,6 @@
+
+https://ics385spring2026-a20r.onrender.com/
+
 # Maui Surf House Term Project
 
 Maui Surf House is a full-stack vacation rental site for Australian surfers visiting Maui: a public marketing page with a live dashboard, local + Google login, and an admin-protected property editor, all backed by MongoDB.
