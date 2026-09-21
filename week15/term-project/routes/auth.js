@@ -16,7 +16,7 @@ router.get("/auth/google", (req, res, next) => {
 router.get(
   "/auth/google/callback",
   passport.authenticate("google", {
-    failureRedirect: "/",
+    failureRedirect: `${process.env.FRONTEND_ORIGIN || "http://localhost:5173"}/#login`,
     failureFlash: false,
   }),
   (req, res) => {
