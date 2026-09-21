@@ -38,7 +38,9 @@ app.use(
       directives: {
         ...helmet.contentSecurityPolicy.getDefaultDirectives(),
         // properties.ejs uses an inline <style> block
-        "style-src": ["'self'", "'unsafe-inline'"]
+        "style-src": ["'self'", "'unsafe-inline'"],
+        // the React dashboard fetches live weather from OpenWeatherMap
+        "connect-src": ["'self'", "https://api.openweathermap.org"]
       }
     }
   })
