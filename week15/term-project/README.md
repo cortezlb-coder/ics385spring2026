@@ -153,11 +153,11 @@ Fixes made while deploying to Render:
 - **`vite: not found` build failure:** `vite` lives in `react-marketing`'s devDependencies, and Render's `NODE_ENV=production` made `npm install` skip devDependencies. Fixed by using `npm install --include=dev --prefix react-marketing` in the `build` script.
 - **Live weather always showed the fallback:** Helmet's default Content-Security-Policy blocks `fetch()` calls to any domain except the app's own origin, so the dashboard's request to `api.openweathermap.org` was silently blocked by the browser. Fixed by adding `api.openweathermap.org` to the `connect-src` directive.
 
-## Week-by-Week Summary
+## Week-by-Week Summary & AI attribution
 - **Week 10:** First time connecting Express to MongoDB Atlas — set up a database user, wrote my first Mongoose schema, and got a seed script to load one property.
 - **Week 11:** Learned how routes actually work by building `GET`/`POST` endpoints for properties and reviews, then used Postman to poke at each one and check the responses before wiring up any frontend.
 - **Week 12:** Rebuilt the project around the real Maui Surf House PRD, trimmed the seed data down to one clean listing, and started the React marketing page from scratch.
 - **Week 13:** Added a React dashboard with Chart.js and pulled in live weather from OpenWeatherMap — first real experience calling an outside API from the frontend.
 - **Week 14:** Learned password hashing with bcrypt, sessions with `express-session`, and how to gate routes so only an admin role can hit certain endpoints.
 - **Week 15:** Added Google login next to the local one with Passport, learned why Helmet and express-validator matter for security, split the one giant `app.js` file into routes/middleware/config, and got the whole thing deployed on Render.
-
+- - Use AI to help generate code and made prompts in order to understand fuctions, did a walkthrough with AI to help troubleshoot and explain the processes when problems arise. Had AI create notes to help me remember in the code what each line does. Used it to get caught back up from hiatus due to work. Used AI to summarize assignments and show steps on how to proceed. 
